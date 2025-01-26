@@ -1,0 +1,43 @@
+.main-title {
+    font-size: 26px;
+}
+
+
+.result-descr {
+    text-align: center;
+    font-size: 36px;
+}
+
+.result-descr.dscr-red {
+    color: rgb(201, 52, 52);
+}
+
+.result-descr.dscr-yellow {
+    color: rgb(141, 114, 47);
+}
+
+.result-descr.dscr-green {
+    color: rgb(9, 194, 24);
+}
+
+
+
+.result-list {
+    font-size: 26px;
+    /* text-align: center; */
+    list-style: none;
+    width: 300px;
+    border: 2px solid black;
+    /* padding: 40px; */
+    padding: 20px 0 20px 40px;
+    margin: 20px auto;
+}
+
+/* .js-green {
+
+} */
+
+.js-red {
+    color: red;
+    font-weight: 600;
+}

@@ -1,0 +1,305 @@
+/* === базові налаштування === */
+
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+} or modern-normalize */
+
+/* -- modern-normalize 
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.0.0/modern-normalize.min.css"
+    /> */
+
+/* html {
+    background-color: #b9f3b7; 
+} */
+
+/* ----------hidden ----------- */
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
+}
+/* ---end----hidden ----------- */
+
+/* -----button v1---- */
+.button {
+
+  margin-left: 4px;
+  margin-right: 4px;
+  font-size: 20px;
+  padding: 8px 30px;
+  background-color: #3f51b5;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+/* -----button v2---- */
+.btn-form {
+  display: inline-flex;
+  /* display: inline-block; */
+  /* display: inline; */
+  /* display: block; xxxxx*/
+  padding: 12px 24px;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 16px;
+  background-color: cyan;
+  color: black;
+  cursor: pointer;
+}
+
+.btn-form:hover,
+.btn-form:focus {
+  background-color: orange;
+}
+
+.btn-form:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+/* -end-----button---- */
+
+
+
+body {
+    /* margin-top: 0; */
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    background-color: #b9f3b7;
+    letter-spacing: 0.4px;
+    /* color: black; */
+    /* width: 1200px; */
+    /* margin-left: auto;
+    margin-right: auto; */ 
+}
+
+/* h1,
+h2,
+h3,
+h4,
+h5 {
+  margin-top: 14px;
+  margin-bottom: 0;
+} */
+
+
+.body {
+  /* background-color: rgb(72, 92, 97); */
+  background-image: url("../img/bg-img-graph.avif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  /* margin-top: 0; */
+  /* padding-top: 5px; */
+}
+
+h2 {
+  text-align: center;
+}
+
+p {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+} 
+
+ul {
+  list-style: none; /*сброс точки в списках*/
+  margin-top: 6px;
+}
+
+
+.section-title,
+.section-menu,
+.page-header,
+.section-about,
+.section-hero,
+.page-footer {
+    background-color: #fee;
+    max-width: 1140px;
+    min-width: 420px;
+    margin: 0 auto 40px;
+  }
+  
+  
+  /* .page-header {
+    background-color: #edf4d7;
+    margin-bottom: 10px;
+  } */
+  /* .section-about {
+    background-color: #b2bec5;
+  } */
+  /* .section-hero {
+    background-color: #c5b3c9;
+  } */
+  /* .page-footer {
+    background-color: #8974a2;
+  } */
+
+
+.container {
+    /* max-width: 1140px; */
+    /* width: 1140px;
+    width: 100%; */
+    /* margin: 0 auto; */
+    padding: 10px 15px;
+    /* background-color: #edf4d7; */
+    outline: 1px solid black;
+  }
+
+
+code {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(17, 83, 37);
+  }
+
+pre {
+  display: inline-block;
+  background-color: #eeeeff;
+  /* margin: 0 auto; */
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+
+  /* max-width: 640px; */
+  padding-bottom: 0;
+
+
+}
+
+/* Back to main page */
+
+.fixed-back {
+    display: inline-block;
+    border: 1px solid green;
+    text-decoration: none;
+    border-radius: 4px;
+    background-color: rgba(212, 211, 241, 0.5);
+    font-size: 18px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+
+    position: fixed;
+    top: 20px;
+    left: 30px;
+    padding: 6px 10px;
+    z-index: 2;
+}
+
+.fixed-back:hover {
+    color: red;
+    background-color: #dbc4a6;
+}
+
+.fixed-back:active {
+    top: 22px;
+    left: 32px;
+    box-shadow: none;
+}
+
+
+/* === menu index.html */
+
+.menu-title {
+  /* font-family: sans-serif; */
+  /* font-family: serif; */
+  /* font-family: 'Arial', 'Helvetica', sans-serif; */
+  font-family: 'Tangerine', cursive;
+  
+  /* font-style: normal | italic | oblique | initial | inherit */
+  font-size: 46px;
+  font-weight: 700;
+  color: rgb(0, 82, 0);
+}
+
+
+.menu-container {
+  display: flex;
+  justify-content: space-around;
+  width: 660px;
+  /* border: 1px solid black; */
+  margin: 50px auto;
+  font-size: 18px;
+  /* font-weight: bold; */
+}
+
+
+.menu-sub-container {
+  flex-basis: calc((100% - 15px) / 3);
+  /* border: 1px solid red; */
+}
+
+.menu-sub-container > h2 {
+  /* text-align: center; */
+  font-size: 24px;
+  margin-left: 30px;
+  color: red;
+}
+
+.menu-space-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 420px;
+  /* height: calc(100% - 80px); */
+
+}
+
+
+
+
+.menu-link {
+  text-decoration: none;
+  color: black;
+}
+
+
+.menu-link:hover {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+
+/* .item:last-child {
+  border: 1px solid red;
+} */
+
+/* .item:nth-child(9) a,
+.item:nth-child(7) a {
+  color: #999;
+} */
+
+.list-other > li > a {
+  color: #777;
+}
+
+
