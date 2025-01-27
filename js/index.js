@@ -33,12 +33,17 @@ import { randomLine } from "./admins.js";
 let numberTask = 1; // Номер завдання =
 let randomSubArr = []; // Масив з рандомної черги
 let resultArr = []; // Масив відповідей 
+let int_sub_1 = 2; // Змінна про перший множник, стягується з селекту 
 
 const numberTaskTeg = document.querySelector(".form-title span"); // Номер завдання = Тег html
+
 const randomSubTeg = document.querySelector(".random-sub"); // Множник  з рандомної черги = Тег html
 const resultDescrTeg = document.querySelector(".result-answ"); // Відповідь message = Тег html
 
-
+// ==== Select =====
+const subTeg_1 = document.querySelector(".sub-1"); // Перший множник  = Тег html
+const select = document.querySelector("#_select"); //  Стягуємо Тег "Select"
+// console.log(select.value);
 
 // ======== MODAL WINDOW ========
 
@@ -55,6 +60,10 @@ function openModal () {
   closeModalBtn.addEventListener("click", closeModal);
   document.addEventListener("keydown", closeModalEsc);
 
+
+  int_sub_1 = Number(select.value);
+  subTeg_1.textContent = select.value;
+
   randomSubArr = randomLine(); // Масив з рандомної черги
   console.log(randomSubArr);
   randomSubTeg.textContent = randomSubArr[numberTask - 1]; // вивід наступного множника на екран 
@@ -65,6 +74,10 @@ function closeModal() {
   modal.classList.add("is-hidden");
   closeModalBtn.removeEventListener("click", closeModal);
   document.removeEventListener("keydown", closeModalEsc);
+
+  
+  numberTask = 1;
+  numberTaskTeg.textContent = numberTask; // рестарт номера задачі на екран 1
 }
 
 function closeModalEsc(e) {
@@ -93,7 +106,7 @@ function onSubmit(event) {
   numberTask += 1;
   
 
-  console.log(numberTask);
+  // console.log(numberTask);
 
   if(numberTask >= 9) {
     numberTask = 1;
@@ -128,7 +141,7 @@ function renderResult() {
   // console.log(resultArr);
 
   for (let i=0; i<=8; i++) {
-    if(randomSubArr[i] * 2 === resultArr[i]) {
+    if(randomSubArr[i] * int_sub_1 === resultArr[i]) {
       res +=1;
     }
   };
@@ -162,19 +175,30 @@ function renderResult() {
 function renderResultList() {
   const listTeg = document.querySelector(".result-list");
   const markup = resultArr.map((item, idx) => {
-    const ix = randomSubArr[idx];
+    const ix = randomSubArr[idx]; // Другий множник
     // const iy = ix * 2 === item ? "✅" : "❌";
     let iy = "✅";
     let classColor = "green";
-    if(ix * 2 != item) {
+    if(ix * int_sub_1 != item) {
       iy = "❌";
       classColor = "red";
     }
     return `
-      <li class="js-${classColor}">${iy} 2 x ${ix} = ${item}</li>
+      <li class="js-${classColor}">${iy} ${int_sub_1} x ${ix} = ${item}</li>
     `;
   }).join("");
   listTeg.innerHTML = markup;
   
 }
 
+
+
+
+// ==== Select =====
+// const select = document.querySelector("#_select");
+// console.log(select.value);
+
+// select.addEventListener("change", (event)=> {
+//   console.log(event.currentTarget.value);
+
+// });

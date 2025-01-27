@@ -19,7 +19,7 @@
     /* box-sizing: border-box; */
     /* display: inline-block; */
     display: block;
-    min-width: 100px;
+    min-width: 120px;
     margin-left: auto;
     margin-right: auto;
     padding: 8px 16px;
@@ -30,11 +30,12 @@
     font-family: "Roboto";
     font-style: normal;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 22px;
     line-height: 1.19;
     letter-spacing: 0.04em;
     cursor: pointer;
     color: #ffffff;
+    /* color: rgb(167, 202, 174); */
     background-color: #4d5ae5;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), 
         box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);

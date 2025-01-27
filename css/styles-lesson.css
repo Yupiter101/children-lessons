@@ -3,6 +3,16 @@
 }
 
 
+.setting-form {
+    width: 160px;
+    margin: 0 auto;
+    font-size: 22px;
+}
+#_select {
+    width: 50px;
+}
+
+
 .result-descr {
     text-align: center;
     font-size: 32px;
@@ -26,10 +36,10 @@
     font-size: 18px;
     /* text-align: center; */
     list-style: none;
-    width: 300px;
+    width: 260px;
     /* border: 2px solid black; */
     /* padding: 40px; */
-    padding: 20px 0 20px 20px;
+    padding: 20px 0 20px 60px;
     margin: 20px auto;
 }
 
