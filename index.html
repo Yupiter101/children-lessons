@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/favicon.png" sizes="16x16">
     <title>School</title>
     <!-- modern-normalize -->
     <link
@@ -58,17 +59,21 @@
         <section class="section-about">
           <div class="container">
               <h3>Audio</h3>
+
+              <div id="player-container">
+                <!-- <audio src="../sounds/crash1.wav" controls autoplay loop preload="auto"></audio> -->
+                <audio class="my-audio" src="./sounds/music1.ogg" controls></audio>
+              </div>
+
               <button type="button" id="play">Play</button>
+              <button type="button" id="pause">Pause</button>
               <button type="button" id="stop">Stop</button>
           </div>
         </section>
 
 
-        <section class="section-about">
-            <div class="container">
-                <div id="player-container"></div>
-            </div>
-        </section>
+
+
 
         <section class="section-about">
           <div class="container">
@@ -76,9 +81,41 @@
               <ul>
                 <li><a href="https://www.youtube.com/watch?v=VXWvfrmpapI&list=PLYElE_rzEw_sHeIIv7BMliQF5zB7BliJE&ab_channel=Frankslaboratory" 
                   target="_blank">www.youtube.com</a></li>
+                <li><a href="https://opengameart.org/" target="_blank">https://opengameart</a></li>
               </ul>
           </div>
       </section>
+
+
+      <section class="section-about">
+            <div class="container">
+              <h2>Аудио. Заметки</h2>
+              <ol>
+                <li>HTML</li>
+                <li><code>&lt;audio class="my-audio" src="./sounds/music1.ogg" controls&gt;&lt;/audio&gt;</code></li>
+                <li>JS</li>
+                <li><code>const playBtn = document.querySelector("#play");</code></li>
+                <li>Play: <code>myPlayer.play();</code></li>
+                <li>Pause: <code>myPlayer.pause();</code></li>
+                <li>Stop: <code>myPlayer.pause(); myPlayer.currentTime = 0;</code></li>
+                <li>Duration: <code>myPlayer.duration</code> seconds</li>
+                <li>Volume: <code>myPlayer.volume</code> 0.0 - 1.0</li>
+                <li><pre>
+      myPlayer.addEventListener("timeupdate", onUpdateTime);
+      function onUpdateTime(event) {
+        const { duration, currentTime } = event.srcElement;
+        console.log(duration, currentTime );
+    }
+                </pre></li>
+                <li><code>soundCrash.addEventListener("playing", ()=> console.log("Audio started"));</code></li>
+                <li><code>soundCrash.addEventListener("ended", ()=> console.log("Audio stoped"));</code></li>
+                <li><code></code></li>
+                <li><a href="https://www.youtube.com/watch?v=D4xqV7VrXNI&ab_channel=%D0%9C%D0%B0%D0%BD%D1%96%D0%B2%D1%86%D0%B5%D0%BC">
+                  Посилання на ресурс
+                </a></li>
+              </ol>
+            </div>
+        </section>
 
      
 
