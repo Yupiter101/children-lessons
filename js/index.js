@@ -2,7 +2,7 @@ console.log("Hello from ILLIA index.js");
 
 "use strict"; // код в суворому режимі
 
-import { randomLine } from "./admins.js";
+import { randomLine, onTimeCount, onDateTime } from "./admins.js";
 
 
 
@@ -27,13 +27,22 @@ import { randomLine } from "./admins.js";
 // By me ===
 
 
-
 // =========== Таблиця множення =================
+
 
 let numberTask = 1; // Номер завдання =
 let randomSubArr = []; // Масив з рандомної черги
 let resultArr = []; // Масив відповідей 
 let int_sub_1 = 2; // Змінна про перший множник, стягується з селекту 
+let timeCounter = 0;
+let interval_Id = null;
+
+const myTimer = document.querySelector(".my-timer");
+const listRang = document.querySelector("#list-rang");
+renderRangList();
+
+
+
 
 const numberTaskTeg = document.querySelector(".form-title span"); // Номер завдання = Тег html
 
@@ -67,6 +76,7 @@ function openModal () {
   randomSubArr = randomLine(); // Масив з рандомної черги
   console.log(randomSubArr);
   randomSubTeg.textContent = randomSubArr[numberTask - 1]; // вивід наступного множника на екран 
+  onStartTimer();
 }
 
 
@@ -78,6 +88,8 @@ function closeModal() {
   
   numberTask = 1;
   numberTaskTeg.textContent = numberTask; // рестарт номера задачі на екран 1
+  onStoptTimer();
+  console.log(onDateTime());
 }
 
 function closeModalEsc(e) {
@@ -87,12 +99,24 @@ function closeModalEsc(e) {
 }
 
 
+// Завантаження звуків
+
+const soundWin_1s = new Audio();
+soundWin_1s.src = "../sounds/sound-win-1s.wav"; // 1s
+
+const soundWin_3s = new Audio();
+soundWin_3s.src = "../sounds/game-won.wav"; // 3s
+
+const soundLost = new Audio();
+soundLost.src = "../sounds/sound-lost.wav"; // 1s
 
 
 
 // ==== submit =====
 const myForm = document.querySelector(".modal-form");
 myForm.addEventListener("submit", onSubmit);
+let lostFlag = false;
+
 
 function onSubmit(event) {
   event.preventDefault();
@@ -103,17 +127,45 @@ function onSubmit(event) {
   }
   
   resultArr[numberTask - 1] = Number(inputValue); // Записуєм введену відповідь у масив
+
+
+  // ====== sound =======
+  soundWin_1s.pause();
+  soundWin_1s.currentTime = 0;
+  soundLost.pause();
+  soundLost.currentTime = 0;
+  
+  // console.log(numberTask);
+  if(numberTask < 8) {
+    if(randomSubArr[numberTask - 1] * int_sub_1 === resultArr[numberTask - 1]) {
+      console.log("Win");
+      soundWin_1s.play();
+    }
+    else {
+      console.log("Lost");
+      soundLost.play();
+      lostFlag = true;
+    }
+  }
+  else {
+    // console.log("I am here");
+    if(!lostFlag) {
+      soundWin_3s.play();
+    }
+    // else {
+    //   soundLost.play();
+    // }
+  }
+
   numberTask += 1;
   
-
-  // console.log(numberTask);
 
   if(numberTask >= 9) {
     numberTask = 1;
     numberTaskTeg.textContent = numberTask; // рестарт номера задачі на екран 1
     openModalBtn.textContent = "Спробувати ще раз";
     randomSubTeg.textContent = 1; // множник стартує з 1
-    console.log(numberTask);
+    // console.log(numberTask);
     resultDescrTeg.innerHTML = renderResult();
     renderResultList();
     closeModal();
@@ -131,6 +183,28 @@ function onSubmit(event) {
 
 
 // ===== FUNCTIONS =============
+
+function renderRangList() {
+  listRang.innerHTML = `<li>30.1.2025 0:12:26</li>`;
+}
+
+
+function onStartTimer() {
+  interval_Id = setInterval(()=> {
+    timeCounter += 1;
+    myTimer.textContent = onTimeCount(timeCounter);
+  }, 1000);
+  
+}
+
+
+function onStoptTimer() {
+  clearInterval(interval_Id);
+  timeCounter = 0;
+  myTimer.textContent = "0:00:00";
+}
+
+
 
 function renderResult() {
   let res = 0;

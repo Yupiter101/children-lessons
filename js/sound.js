@@ -1,4 +1,4 @@
-console.log("Hello from audio js");
+console.log("Hello from sound js");
 
 
 
@@ -17,8 +17,15 @@ const playrBox = document.querySelector("#player-container");
 const soundCrash = new Audio();
 soundCrash.src = "../sounds/crash1.wav";
 
-// const myMusic = new Audio();
-// myMusic.src = "../sounds/music1.ogg";
+// const soundWin_1s = new Audio();
+// soundWin_1s.src = "../sounds/zvuk-pobedyi-vyiigryisha.wav"; // 1s
+
+
+// const soundWin_3s = new Audio();
+// soundWin_3s.src = "../sounds/game-won.wav"; // 3s
+
+const myMusic = new Audio();
+myMusic.src = "../sounds/music1.ogg";
 
 
 
@@ -35,6 +42,8 @@ stopBtn.addEventListener("click", onStop);
 // ============== FUNCTIONS ==================
 
 function onPlay() {
+    // myPlayer.currentTime = 5;
+    playBtn.disabled = true;
     console.log("play");
     myPlayer.play();
     console.log(myPlayer.duration);
@@ -45,6 +54,7 @@ function onPlay() {
 }
 
 function onPause() {
+    playBtn.disabled = false;
     console.log("Pause");
     myPlayer.pause();
 }

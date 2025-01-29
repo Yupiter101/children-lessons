@@ -2,6 +2,15 @@
     font-size: 26px;
 }
 
+.modal-timer {
+    text-align: center;
+    font-size: 22px;
+}
+
+.my-timer {
+    color: darkgreen;
+}
+
 
 .setting-form {
     width: 160px;

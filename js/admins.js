@@ -28,3 +28,56 @@ export function randomLine () {
 
     return randomArr;
 }
+
+
+// ====== TIME_COUNTER ============
+
+export function onTimeCount (s) {
+    let h = Math.floor(s/3600);
+
+    let min  = Math.floor(s/60);
+    if(min < 10) min = "0" + min;
+
+    let sec =  Math.floor(s%60);
+    if(sec < 10) sec = "0" + sec;
+
+    return `${h}:${min}:${sec}`;
+}
+
+// ====== ON DATE TIME ============
+
+export function onDateTime () {
+    const currentTime = new Date();
+    // == DATE ==
+    const carrDate = currentTime.getDate();
+    const carrMonth = currentTime.getMonth() + 1;
+    const carrYear = currentTime.getFullYear();
+    // == TIME ==
+    const carrHour = currentTime.getHours();
+    let carrMin = currentTime.getMinutes();
+    if(carrMin < 10) carrMin = "0" + carrMin;
+    let carrSec = currentTime.getSeconds();
+    if(carrSec < 10) carrSec = "0" + carrSec;
+    // const formatTime = `${carrHours} : ${xx(carrMin)} : ${xx(carrSec)}`;
+    return `${carrDate}.${carrMonth}.${carrYear} ${carrHour}:${carrMin}:${carrSec}`;
+}
+
+export function onDateTimeUk () {
+    const arrMonth = ["Січня", "Лютого", "Березня", "Квітня", "Травня", "Червня", "Липня", "Серпня", "Вересня", "Жовтня", "Листопада", "Грудня" ];
+    const arrDay = ["нд", "пн", "вт", "ср", "чт", "пт", "сб"];
+
+    const currentTime = new Date();
+    // == DATE ==
+    const carrDay = arrDay[currentTime.getDay()];
+    const carrDate = currentTime.getDate();
+    const carrMonth = arrMonth[currentTime.getMonth()];
+    const carrYear = currentTime.getFullYear();
+    // == TIME ==
+    const carrHour = currentTime.getHours();
+    let carrMin = currentTime.getMinutes();
+    if(carrMin < 10) carrMin = "0" + carrMin;
+    let carrSec = currentTime.getSeconds();
+    if(carrSec < 10) carrSec = "0" + carrSec;
+    // const formatTime = `${carrHours} : ${xx(carrMin)} : ${xx(carrSec)}`;
+    return `${carrDate} ${carrMonth} ${carrYear} року. Time: ${carrHour}:${carrMin}:${carrSec}`;
+}
