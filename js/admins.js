@@ -1,4 +1,9 @@
+// notes 
 
+const a = null;
+const b = 0;
+const c = b ?? a;
+// console.log(c); // 0
 
 
 // ======= Random (from - to) =======
