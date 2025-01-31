@@ -87,71 +87,31 @@ let isOpenModal = false;
 
 
 
-
-// const logObject2 = {
-//   userName: "Ілля",
-//   needTime: "timeCounter",
-//   rightAnswer: 5,
-//   int_sub_1: "2",
-// };
-
-
-// async function getLocalStor() {
-//   try{
-//     const myObjStorage = localStorage.getItem("school") ?? [];
-//     const myData = await JSON.parse(myObjStorage);
-//     // console.log(myData);
-//     return myData;
-//   }catch(err) {
-//     console.log(err);
-//   }
-  
-// }
-
-// getLocalStor().then((myData)=> console.log(myData) )
-
-// localStorage.setItem("school", JSON.stringify(logObject2));
-
-
-// Try/Catch
-// ===== Rendet LogList at start page ======
-// const getLocalStorage = localStorage.getItem("school") ?? "";
-
-// console.log("Start");
-
-// const jsonParser = (datajson) => {
-//   try {
-//       return JSON.parse(datajson);
-//   } catch (error) {
-//       // console.error(error);
-//       return "My Error JSON!";
-//   }
-// }
-
-// jsonParser(getLocalStorage);
-// console.log(jsonParser( '{"nik": "Yupi"}' ));
-// console.log(jsonParser(''));
-// console.log("End");
-
-// logObjectArr = JSON.parse(getLocalStorage);
-// console.log(getLocalStorage);
-
-// if(logObjectArr.length) {
-//     // logObjectArr = JSON.parse(getLocalStorage);
-//     const markup = logObjectArr.map( item => {
-//         return renderLogList(item);
-//     }).join("");
-//     logList.innerHTML = markup;
+// Repeta:
+// const textArea = currentTarget.value; // Всплівает
+// const textArea = target.value; // завжди однакове
+// npm i lodash.trottle
+// import trottle from "lodash.trottle"
+// https://handlebarsjs.com/
+// perfomance.now(); - Измерение производительности функций в JavaScript
+// Шаблонізація
+// event.currentTarget.reset();
+// const myObjStorage = localStorage.getItem("school") ?? '';
+// if (myObjStorage) {
+//   // Code
 // }
 
 
+// let arr2 = [];
+// arr2.push("a");
+// console.log(arr2);
 
 // ===== Rendet LogList at start page ======
 const getLocalStorage = localStorage.getItem("school") ?? "";
 
 if(getLocalStorage !== "") {
-  logObjectArr = JSON.parse(getLocalStorage);
-  console.log(getLocalStorage);
+  logObjectArr = jsonParser(getLocalStorage);
+  // console.log(logObjectArr);
 
   if(logObjectArr.length) {
     // logObjectArr = JSON.parse(getLocalStorage);
@@ -160,26 +120,7 @@ if(getLocalStorage !== "") {
     }).join("");
     logList.innerHTML = markup;
   }
-
 }
-
-
-
-
-// // ===== Rendet LogList at start page ======
-// const getLocalStorage = localStorage.getItem("school") ?? [];
-// logObjectArr = JSON.parse(getLocalStorage);
-// console.log(getLocalStorage);
-
-// if(logObjectArr.length) {
-//     logObjectArr = JSON.parse(getLocalStorage);
-//     const markup = logObjectArr.map( item => {
-//         return renderLogList(item);
-//     }).join("");
-//     logList.innerHTML = markup;
-//  }
-
-
 
 
 
@@ -270,7 +211,7 @@ function onSubmit(event) {
   // console.log(numberTask);
   if(numberTask < 8) {
     if(randomSubArr[numberTask - 1] * int_sub_1 === resultArr[numberTask - 1]) {
-      // console.log("Win");
+      console.log("Win");
       soundWin_1s.play();
     }
     else {
@@ -282,6 +223,7 @@ function onSubmit(event) {
   else {
     // console.log("I am here");
     if(!lostFlag) {
+      console.log("Seccess!");
       soundWin_3s.play();
     }
     // else {
@@ -292,7 +234,6 @@ function onSubmit(event) {
   numberTask += 1;
 
   console.log(numberTask);
-  // console.log("closeModal");
 
   if(numberTask >= 9) {
     numberTask = 1;
@@ -311,21 +252,10 @@ function onSubmit(event) {
     };
 
   
-  
-
     logObjectArr.push(logObject);
+    
+    localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
    
-
-    // === set lockalStorage() ====
-    localStorage.setItem("school", JSON.stringify(logObjectArr));
-
-
-
-
-
-
-
-
     logList.insertAdjacentHTML("beforeend", renderLogList(logObject));
 
     resultDescrTeg.innerHTML = renderResult();
@@ -344,6 +274,16 @@ function onSubmit(event) {
 
 
 // ===== FUNCTIONS =============
+
+function jsonParser(datajson) {
+  try {
+      return JSON.parse(datajson);
+  } catch (error) {
+      // console.error(error);
+      return "Error parse JSON!";
+  }
+}
+
 
 
 function renderLogList({ id, userName, needTime, rightAnswer }) {
