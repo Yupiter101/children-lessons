@@ -14,8 +14,8 @@ const playrBox = document.querySelector("#player-container");
 
 // Завантаження звуків
 
-const soundCrash = new Audio();
-soundCrash.src = "../sounds/crash1.wav";
+// const soundCrash = new Audio();
+// soundCrash.src = "../sounds/crash1.wav";
 
 // const soundWin_1s = new Audio();
 // soundWin_1s.src = "../sounds/zvuk-pobedyi-vyiigryisha.wav"; // 1s
@@ -24,8 +24,8 @@ soundCrash.src = "../sounds/crash1.wav";
 // const soundWin_3s = new Audio();
 // soundWin_3s.src = "../sounds/game-won.wav"; // 3s
 
-const myMusic = new Audio();
-myMusic.src = "../sounds/music1.ogg";
+// const myMusic = new Audio();
+// myMusic.src = "../sounds/music1.ogg";
 
 
 

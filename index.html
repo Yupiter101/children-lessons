@@ -73,11 +73,38 @@
         <section class="section-about">
           <div class="container">
               <h3>Audio</h3>
-
+              <!-- <audio src="../sounds/crash1.wav" controls autoplay loop preload="auto"></audio> -->
+              <!-- <audio class="my-audio" src="./sounds/music1.ogg" controls></audio> -->
+              
               <div id="player-container">
-                <!-- <audio src="../sounds/crash1.wav" controls autoplay loop preload="auto"></audio> -->
-                <audio class="my-audio" src="./sounds/music1.ogg" controls></audio>
+                <audio class="my-audio" controls>
+                  <source src="./sounds/music1.ogg" type="audio/ogg">
+                </audio>
+
+                <audio class="sounds-game-won">
+                  <source src="./sounds/game-won.ogg" type="audio/ogg">
+                  <source src="./sounds/game-won.wav" type="audio/wav">
+                </audio>
+
+                <audio class="sounds-win">
+                  <source src="./sounds/sound-win-1s.ogg" type="audio/ogg">
+                  <source src="./sounds/sound-win-1s.wav" type="audio/wav">
+                </audio>
+
+                <audio class="sounds-lost">
+                  <source src="./sounds/sound-lost.ogg" type="audio/ogg">
+                  <source src="./sounds/sound-lost.wav" type="audio/wav">
+                </audio>
               </div>
+
+              <!-- <div id="player-container">
+                <audio controls class="my-audio">
+                  <source src="./sounds/game-won.ogg" type="audio/ogg">
+                  <source src="./sounds/game-won.wav" type="audio/wav">
+                  <source src="./sounds/sound-lost.wav" type="audio/ogg">
+                  <source src="./sounds/sound-lost.ogg" type="audio/wav">
+                </audio>
+              </div> -->
 
               <button type="button" id="play">Play</button>
               <button type="button" id="pause">Pause</button>
@@ -123,7 +150,7 @@
               </ol>
               <pre>
   myPlayer.addEventListener("timeupdate", onUpdateTime);
-  function onUpdateTime(event) {
+  function onUpdateTime(event) {//
     const { duration, currentTime } = event.srcElement;
     console.log(duration, currentTime );</pre>
             </div>

@@ -70,10 +70,21 @@ const numberTaskTeg = document.querySelector(".form-title span"); // Номер 
 const randomSubTeg = document.querySelector(".random-sub"); // Множник  з рандомної черги = Тег html
 const resultDescrTeg = document.querySelector(".result-answ"); // Відповідь message = Тег html
 
-// ==== Select =====
+// ==== audio players  =====
+const playerGameWon = document.querySelector(".sounds-game-won"); // Player Won
+const playerSoundWin = document.querySelector(".sounds-win"); // Player Win
+const playerSoundLost = document.querySelector(".sounds-lost"); // Player Lost
+
+
+
+
+// ==== Select 2 - 9 =====
 const subTeg_1 = document.querySelector(".sub-1"); // Перший множник  = Тег html
 const select = document.querySelector("#_select"); //  Стягуємо Тег "Select"
 // console.log(select.value);
+
+
+
 
 // ======== MODAL WINDOW ========
 
@@ -171,14 +182,14 @@ function closeModal() {
 
 // Завантаження звуків
 
-const soundWin_1s = new Audio();
-soundWin_1s.src = "../sounds/sound-win-1s.ogg"; // 1s
+// const soundWin_1s = new Audio();
+// soundWin_1s.src = "../sounds/sound-win-1s.ogg"; // 1s
 
-const soundWin_3s = new Audio();
-soundWin_3s.src = "../sounds/game-won.ogg"; // 3s
+// const soundWin_3s = new Audio();
+// soundWin_3s.src = "../sounds/game-won.ogg"; // 3s
 
-const soundLost = new Audio();
-soundLost.src = "../sounds/sound-lost.ogg"; // 1s
+// const soundLost = new Audio();
+// soundLost.src = "../sounds/sound-lost.ogg"; // 1s
 
 
 
@@ -199,11 +210,21 @@ function onSubmit(event) {
   
   resultArr[numberTask - 1] = Number(inputValue); // Записуєм введену відповідь у масив
 
+
+
   // ====== sound =======
-  soundWin_1s.pause();
-  soundWin_1s.currentTime = 0;
-  soundLost.pause();
-  soundLost.currentTime = 0;
+
+  playerSoundWin.pause();
+  playerSoundWin.currentTime = 0;
+
+  playerSoundLost.pause();
+  playerSoundLost.currentTime = 0;
+
+  // soundWin_1s.pause();
+  // soundWin_1s.currentTime = 0;
+  // soundLost.pause();
+  // soundLost.currentTime = 0;
+
   
   if(randomSubArr[numberTask - 1] * int_sub_1 === resultArr[numberTask - 1]) {
     rightAnswer +=1;
@@ -212,11 +233,13 @@ function onSubmit(event) {
   if(numberTask < 8) {
     if(randomSubArr[numberTask - 1] * int_sub_1 === resultArr[numberTask - 1]) {
       console.log("Win");
-      soundWin_1s.play();
+      // soundWin_1s.play();
+      playerSoundWin.play();
     }
     else {
       // console.log("Lost");
-      soundLost.play();
+      // soundLost.play();
+      playerSoundLost.play();
       lostFlag = true;
     }
   }
@@ -224,7 +247,8 @@ function onSubmit(event) {
     // console.log("I am here");
     if(!lostFlag) {
       console.log("Seccess!");
-      soundWin_3s.play();
+      // soundWin_3s.play();
+      playerGameWon.play();
     }
     // else {
     //   soundLost.play();
@@ -237,6 +261,7 @@ function onSubmit(event) {
 
   if(numberTask >= 9) {
     numberTask = 1;
+    lostFlag = false;
     numberTaskTeg.textContent = numberTask; // рестарт номера задачі на екран 1
     openModalBtn.textContent = "Спробувати ще раз";
     randomSubTeg.textContent = 1; // множник стартує з 1
