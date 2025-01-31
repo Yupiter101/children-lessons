@@ -172,13 +172,13 @@ function closeModal() {
 // Завантаження звуків
 
 const soundWin_1s = new Audio();
-soundWin_1s.src = "../sounds/sound-win-1s.wav"; // 1s
+soundWin_1s.src = "../sounds/sound-win-1s.ogg"; // 1s
 
 const soundWin_3s = new Audio();
-soundWin_3s.src = "../sounds/game-won.wav"; // 3s
+soundWin_3s.src = "../sounds/game-won.ogg"; // 3s
 
 const soundLost = new Audio();
-soundLost.src = "../sounds/sound-lost.wav"; // 1s
+soundLost.src = "../sounds/sound-lost.ogg"; // 1s
 
 
 
