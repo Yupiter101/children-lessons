@@ -86,3 +86,15 @@ export function onDateTimeUk () {
     // const formatTime = `${carrHours} : ${xx(carrMin)} : ${xx(carrSec)}`;
     return `${carrDate} ${carrMonth} ${carrYear} року. Time: ${carrHour}:${carrMin}:${carrSec}`;
 }
+
+
+
+export function getFormatTime(time) {
+    if (isNaN(time)) {
+        return "-:--"
+    }
+    let min = Math.floor(time/60);
+    let sec = Math.floor(time%60);
+    sec.toString().padStart(2, '0');
+    return `${min}:${sec}`;
+}

@@ -1,62 +1,24 @@
-console.log("Hello from ILLIA index.js");
-"use strict"; // код в суворому режимі
+console.log("Hello from ILLIA_ index.js");
+// "use strict"; // код в суворому режимі
 
 import { randomLine, onTimeCount, onDateTime } from "./admins.js";
-// const fs = require("fs");
-// import fs from "./fs";
-
-// fs.writeFileSync("../files/log.txt", "Hello");
-
-
-// ORIGIN ===
-
-// (() => {
-//     const refs = {
-//       openModalBtn: document.querySelector("[data-modal-open]"),
-//       closeModalBtn: document.querySelector("[data-modal-close]"),
-//       modal: document.querySelector("[data-modal]"),
-//     };
-  
-//     refs.openModalBtn.addEventListener("click", toggleModal);
-//     refs.closeModalBtn.addEventListener("click", toggleModal);
-  
-//     function toggleModal() {
-//       refs.modal.classList.toggle("is-hidden");
-//     }
-//   })();
-
-
-// By me ===
-
-
-
+import { createProgressArr, renderProgressList } from "./render.js";
 
 
 // =========== Таблиця множення =================
 
-
-let numberTask = 1; // Номер завдання =
-let randomSubArr = []; // Масив з рандомної черги
-let resultArr = []; // Масив відповідей 
-let logObjectArr = []; // Масив відповідей 
-let int_sub_1 = 2; // Змінна про перший множник, стягується з селекту 
+let numberTask = 1; // Номер завдання 1-8
+let mult2RandomArr = []; // Масив з рандомної черги 2-9
+let resultAnswArr = []; // Масив відповідей 
+let logObjectArr = []; // Масив з обєктів логів 
+let mult_1 = 2; // Змінна про перший множник, стягується з селекту 
 let timeCounter = 0;
-let interval_Id = null;
-let rightAnswer = 0;
+let interval_Id = null; 
+let rightAnswer = 0; // Лічильник правильних відповідей
 
-// const logObject = {
-//   userName: "Noname",
-//   needTime: timeCounter,
-//   rightAnswer,
-//   id
-// };
 
-// console.log(rengResult);
 const myTimer = document.querySelector(".my-timer");
 const logList = document.querySelector("#log-list");
-// renderLogList();
-
-
 
 
 const removeLocalStor = document.querySelector("#remove-item"); //
@@ -67,15 +29,14 @@ removeLocalStor.addEventListener("click", ()=> {
 });
 
 const numberTaskTeg = document.querySelector(".form-title span"); // Номер завдання = Тег html
-const randomSubTeg = document.querySelector(".random-sub"); // Множник  з рандомної черги = Тег html
-const resultDescrTeg = document.querySelector(".result-answ"); // Відповідь message = Тег html
+const mult2RandomTeg = document.querySelector(".random-sub"); // Множник  з рандомної черги = Тег html
+const resultDescrTeg = document.querySelector("#result-answ"); // Відповідь message = Тег html
+const tableList = document.querySelector("#t-body");
 
 // ==== audio players  =====
 const playerGameWon = document.querySelector(".sounds-game-won"); // Player Won
 const playerSoundWin = document.querySelector(".sounds-win"); // Player Win
 const playerSoundLost = document.querySelector(".sounds-lost"); // Player Lost
-
-
 
 
 // ==== Select 2 - 9 =====
@@ -113,9 +74,6 @@ let isOpenModal = false;
 // }
 
 
-// let arr2 = [];
-// arr2.push("a");
-// console.log(arr2);
 
 // ===== Rendet LogList at start page ======
 const getLocalStorage = localStorage.getItem("school") ?? "";
@@ -123,7 +81,6 @@ const getLocalStorage = localStorage.getItem("school") ?? "";
 if(getLocalStorage !== "") {
   logObjectArr = jsonParser(getLocalStorage);
   // console.log(logObjectArr);
-
   if(logObjectArr.length) {
     // logObjectArr = JSON.parse(getLocalStorage);
     const markup = logObjectArr.map( item => {
@@ -133,6 +90,8 @@ if(getLocalStorage !== "") {
   }
 }
 
+
+tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr));
 
 
 // ======== openModal =========
@@ -146,14 +105,11 @@ function openModal () {
   closeModalBtn.addEventListener("click", closeModal);
   document.addEventListener("keydown", closeModalEsc);
 
-
-  int_sub_1 = Number(select.value);
+  mult_1 = Number(select.value);
   subTeg_1.textContent = select.value;
 
-  randomSubArr = randomLine(); // Масив з рандомної черги
-  console.log(randomSubArr);
-  // console.log("openModal");
-  randomSubTeg.textContent = randomSubArr[numberTask - 1]; // вивід наступного множника на екран 
+  mult2RandomArr = randomLine(); // Масив з рандомної черги
+  mult2RandomTeg.textContent = mult2RandomArr[numberTask - 1]; // вивід наступного множника на екран 
   onStartTimer();
 }
 
@@ -208,8 +164,7 @@ function onSubmit(event) {
     return;
   }
   
-  resultArr[numberTask - 1] = Number(inputValue); // Записуєм введену відповідь у масив
-
+  resultAnswArr[numberTask - 1] = Number(inputValue); // Записуєм введену відповідь у масив
 
 
   // ====== sound =======
@@ -226,13 +181,13 @@ function onSubmit(event) {
   // soundLost.currentTime = 0;
 
   
-  if(randomSubArr[numberTask - 1] * int_sub_1 === resultArr[numberTask - 1]) {
+  if(mult2RandomArr[numberTask - 1] * mult_1 === resultAnswArr[numberTask - 1]) {
     rightAnswer +=1;
   }
   // console.log(numberTask);
   if(numberTask < 8) {
-    if(randomSubArr[numberTask - 1] * int_sub_1 === resultArr[numberTask - 1]) {
-      console.log("Win");
+    if(mult2RandomArr[numberTask - 1] * mult_1 === resultAnswArr[numberTask - 1]) {
+      // console.log("Win");
       // soundWin_1s.play();
       playerSoundWin.play();
     }
@@ -257,40 +212,66 @@ function onSubmit(event) {
 
   numberTask += 1;
 
-  console.log(numberTask);
 
+  // === raund finish ===
   if(numberTask >= 9) {
     numberTask = 1;
     lostFlag = false;
     numberTaskTeg.textContent = numberTask; // рестарт номера задачі на екран 1
     openModalBtn.textContent = "Спробувати ще раз";
-    randomSubTeg.textContent = 1; // множник стартує з 1
-    // console.log(numberTask);
+    mult2RandomTeg.textContent = 1; // множник стартує з 1
     
 
     const logObject = {
       userName: "Ілля",
       needTime: timeCounter,
       rightAnswer,
-      int_sub_1,
+      mult_1,
       id: onDateTime(),
     };
 
-  
-    logObjectArr.push(logObject);
-    
-    localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
-   
-    logList.insertAdjacentHTML("beforeend", renderLogList(logObject));
 
-    resultDescrTeg.innerHTML = renderResult();
-    renderResultList();
+
+    const findIndx = logObjectArr.findIndex(item => {
+      return item.userName === "Ілля" && item.mult_1 === mult_1;
+    });
+
+
+    if(findIndx === -1) {
+      logObjectArr.push(logObject);
+    }
+    else {
+      if(logObjectArr[findIndx].rightAnswer < logObject.rightAnswer) {
+        logObjectArr[findIndx] = logObject;
+      }
+      else if(logObject.rightAnswer === 8) {
+        if(logObjectArr[findIndx].needTime > logObject.needTime) {
+          logObjectArr[findIndx] = logObject;
+        }
+      }  
+    }
+
+    tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr));
+    // logObjectArr.push(logObject);
+
+
+    localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
+    logList.insertAdjacentHTML("beforeend", renderLogList(logObject)); // рендер логів
+    // logList.insertAdjacentHTML("afterbegin", renderLogList(logObject)); // рендер логів
+
+
+
+
+    resultDescrTeg.innerHTML = renderResult(); // Вівід повідомлення та рендер контейнера для списку
+    renderResultList(); // рендер рузультатів віддповідей 
     closeModal();
-    console.log("closeModal");
+
+    // renderProgressList(logObjectArr);
+    // console.log("closeModal");
   }
 
   numberTaskTeg.textContent = numberTask; // вивід номера задачі на екран
-  randomSubTeg.textContent = randomSubArr[numberTask - 1]; // вивід наступного множника на екран
+  mult2RandomTeg.textContent = mult2RandomArr[numberTask - 1]; // вивід наступного множника на екран
   myForm.reset();
 }
 
@@ -298,22 +279,31 @@ function onSubmit(event) {
 
 
 
-// ===== FUNCTIONS =============
+
+
+
+
+
+
+
+
+
 
 function jsonParser(datajson) {
   try {
       return JSON.parse(datajson);
   } catch (error) {
       // console.error(error);
-      return "Error parse JSON!";
+      // return "Error parse JSON!";
+      return [];
   }
 }
 
 
 
-function renderLogList({ id, userName, needTime, rightAnswer }) {
+function renderLogList({ id, userName, mult_1, needTime, rightAnswer }) {
   const formatTime = String(needTime).padStart(3, '0');
-  return `<li>${id}. ${userName}. Time: ${formatTime} s. Level: ${int_sub_1} Result: ${rightAnswer}/8</li>`;
+  return `<li>${id}. ${userName}. Time: ${formatTime} s. Level: ${mult_1} Result: ${rightAnswer}/8</li>`;
 }
 
 
@@ -360,17 +350,17 @@ function renderResult() {
 
 function renderResultList() {
   const listTeg = document.querySelector(".result-list");
-  const markup = resultArr.map((item, idx) => {
-    const ix = randomSubArr[idx]; // Другий множник
+  const markup = resultAnswArr.map((item, idx) => {
+    const ix = mult2RandomArr[idx]; // Другий множник
     // const iy = ix * 2 === item ? "✅" : "❌";
     let iy = "✅";
     let classColor = "green";
-    if(ix * int_sub_1 != item) {
+    if(ix * mult_1 != item) {
       iy = "❌";
       classColor = "red";
     }
     return `
-      <li class="js-${classColor}">${iy} ${int_sub_1} x ${ix} = ${item}</li>
+      <li class="js-${classColor}">${iy} ${mult_1} x ${ix} = ${item}</li>
     `;
   }).join("");
   listTeg.innerHTML = markup;

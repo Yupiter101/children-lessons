@@ -22,7 +22,7 @@
     <main>
         <section class="section-title">
             <div class="container">
-                <h1 class="main-title">Урок 1. Множення</h1>
+                <h1 class="main-title">Множення</h1>
                 <form class="setting-form">
                   <!-- <span>Параметри:</span> -->
                   <label for="_select">Множник: </label>
@@ -42,6 +42,7 @@
             </div>
         </section>
 
+
         <section class="section-about">
             <div class="container">
              
@@ -49,11 +50,54 @@
                     type="button" data-modal-open>Почати тест
                 </button>
 
-                <div class="result-answ"></div>
+                <div id="result-answ"></div>
                 
             </div>
         </section>
 
+
+
+        <section class="section-about">
+          <div class="container">
+            <!-- <h3 class="result-progress">Досягнення</h3> -->
+            <!-- Таблиця досягнення ⌚ 💎 🎈-->
+
+            <table class="schedule">
+              
+              <thead>
+                <tr>
+                  <th colspan="6">Твої досягнення 🏆</th> 
+                </tr>
+                  <tr>
+                    <th>Mult</th>
+                    <th width=80>Asw</th>
+                    <th width=80>⌚</th>
+                    <th width=80>Iron</th>
+                    <th width=80>Silver</th>
+                    <th width=80>Gold</th>
+                  </tr>
+              </thead>
+              <tbody id="t-body" class="schedule-body">
+                  <!-- <tr>
+                    <td>2</td>
+                    <td>8/8</td>
+                    <td>0:00</td>
+                    <td>🎖</td>
+                    <td>🥈</td>
+                    <td>🏆</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>8/8</td>
+                    <td>0:00</td>
+                    <td>0:20</td>
+                    <td>0:15</td>
+                    <td>0:10</td>
+                  </tr> -->
+              </tbody>
+            </table>
+          </div>
+      </section>
 
 
         <section class="section-about">
@@ -65,8 +109,6 @@
               <button id="remove-item" type="button">removeItem</button>
             </div>
         </section>
-
-
 
         
         <!-- PLAYER -->
@@ -97,22 +139,11 @@
                 </audio>
               </div>
 
-              <!-- <div id="player-container">
-                <audio controls class="my-audio">
-                  <source src="./sounds/game-won.ogg" type="audio/ogg">
-                  <source src="./sounds/game-won.wav" type="audio/wav">
-                  <source src="./sounds/sound-lost.wav" type="audio/ogg">
-                  <source src="./sounds/sound-lost.ogg" type="audio/wav">
-                </audio>
-              </div> -->
-
               <button type="button" id="play">Play</button>
               <button type="button" id="pause">Pause</button>
               <button type="button" id="stop">Stop</button>
           </div>
         </section>
-
-
 
 
 
@@ -152,7 +183,7 @@
   myPlayer.addEventListener("timeupdate", onUpdateTime);
   function onUpdateTime(event) {//
     const { duration, currentTime } = event.srcElement;
-    console.log(duration, currentTime );</pre>
+    console.log(duration, currentTime );}</pre>
             </div>
         </section>
 
@@ -167,11 +198,18 @@
                 <li>Додати перемішування</li>
                 <li>Додати логи (localStorage)</li>
                 <li>Додати рейтинг</li>
+              </ol>
+
+              <ol>
+                <li>Вимкнення звуку</li>
                 <li>Додати користувачів</li>
                 <li>Адаптивність модального вікна форми</li>
               </ol>
             </div>
         </section>
+
+        
+
 
         <!-- <section class="section-about">
             <div class="container">
@@ -244,6 +282,46 @@
     
     <script src="./js/index.js" type="module"></script>
     <script src="./js/sound.js" type="module"></script>
+    <!-- <script src="./js/render.js" type="module"></script> -->
     
 </body>
 </html>
+
+
+
+<!-- <section class="section-about">
+  <div class="container">
+    <table border="5" bordercolor="red" align="center">
+      <tr>
+          <th colspan="3">ABCD</th> 
+      </tr>
+      <tr>
+          <th>Name</th>
+          <th>Origin</th>
+          <th>Photo</th>
+      </tr>
+      <tr>
+          <td>Bugatti Veyron Super Sport</td>
+          <td>Molsheim, Alsace, France</td>
+          <td><img src="./img/dc_dc.jpg" alt="dfg" border=3 height=40 width=60></img></td>
+      </tr>
+      <tr>
+          <td>SSC Ultimate Aero TT  TopSpeed</td>
+          <td>United States</td>
+          <td border=3 height=40 width=100>Photo1</td>
+      </tr>
+      <tr>
+          <td>Koenigsegg CCX</td>
+          <td>Ängelholm, Sweden</td>
+          <td border=4 height=40 width=300>Photo1</td>
+      </tr>
+    
+      
+      <tr>
+          <td> Pagani Zonda F Clubsport</td>
+          <td>Modena, Italy</td>
+          <td height=40 width=100>Photo1</td>
+      </tr>
+  </table>
+  </div>
+</section> -->

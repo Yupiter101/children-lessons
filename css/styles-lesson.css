@@ -27,6 +27,11 @@
     font-size: 32px;
 }
 
+.result-progress {
+    text-align: center;
+    font-size: 22px;
+}
+
 .result-descr.dscr-red {
     color: rgb(201, 52, 52);
 }
@@ -43,14 +48,14 @@
 
 .result-list {
     font-size: 18px;
-    /* text-align: center; */
     list-style: none;
     width: 260px;
     /* border: 2px solid black; */
-    /* padding: 40px; */
     padding: 20px 0 20px 60px;
     margin: 20px auto;
 }
+
+
 
 /* .js-green {
 
@@ -60,3 +65,30 @@
     color: red;
     /* font-weight: 600; */
 }
+
+
+
+/* === Таблиця досягнення === */
+  .schedule-body > tr > td:hover {
+    background-color: tomato;
+    color: white;
+  }
+
+  .schedule {
+    border-collapse: collapse;
+    /* border-width: 7px; */
+    font-size: 20px;
+    margin: 20px auto;
+    text-align: center;
+
+  }
+
+  .schedule th,
+  .schedule td {
+    padding: 0px 8px;
+    border: 2px solid #d3ab7c;
+  }
+
+  .no-result {
+    color: #999;
+  }
