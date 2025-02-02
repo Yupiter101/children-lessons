@@ -20,14 +20,43 @@
 
     </header>
     <main>
+
+      <!-- <input type="text" id="test-input"> -->
+
         <section class="section-title">
             <div class="container">
+
+
+                <div class="addUser">
+                  <!-- <p>Вибрати користувача</p> -->
+                  <label for="user-name">Name:</label>
+                  <select id="user-name-select">
+                    <option value="username_0"> -- </option>
+                    <option value="username_1">Ілля</option>
+                    <option value="username_2">Сергій</option>
+                    <option value="username_3">Ірина</option>
+                  </select>
+                  <br>
+              
+                  <!-- <p>Створити нового користувача</p> -->
+                  <!-- <button type="button">New Name</button> -->
+
+                  <!-- <form>
+                    <label>
+                      <input type="text" name="newUser">
+                    </label>
+                    <br>
+                    <button type="submit">Save</button>
+                  </form> -->
+        
+                </div>
+                
                 <h1 class="main-title">Множення</h1>
+
                 <form class="setting-form">
-                  <!-- <span>Параметри:</span> -->
                   <label for="_select">Множник: </label>
-                  <select name="" id="_select">
-                    <option value="2">2</option>
+                  <select name="selectMult" id="_select">
+                    <option value="2" selected>2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
@@ -237,12 +266,9 @@
           <form class="modal-form">
             <p class="modal-timer">Timer: <span class="my-timer">0:00:00</span></p>
             <p class="form-title">Завдання № <span>1</span></p>
-            
-            <!-- <p class="form-title">2 х 6 = </p> -->
   
             <!-- Name -->
             <label class="modal-form-label">
-
                 
               <span class="sub-1"></span>
                 &nbsp;x&nbsp;
@@ -265,6 +291,8 @@
               </span>
               
             </label>
+
+            <!-- <input type="text" id="test-input"> -->
   
   
             <!-- checkbox -->

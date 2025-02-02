@@ -19,19 +19,14 @@ let rightAnswer = 0; // Лічильник правильних відповід
 
 const myTimer = document.querySelector(".my-timer");
 const logList = document.querySelector("#log-list");
+let userName = "";
 
 
-const removeLocalStor = document.querySelector("#remove-item"); //
-removeLocalStor.addEventListener("click", ()=> {
-  localStorage.removeItem("school");
-  logList.innerHTML = "";
-  console.log("removeItem");
-});
 
-const numberTaskTeg = document.querySelector(".form-title span"); // Номер завдання = Тег html
-const mult2RandomTeg = document.querySelector(".random-sub"); // Множник  з рандомної черги = Тег html
-const resultDescrTeg = document.querySelector("#result-answ"); // Відповідь message = Тег html
-const tableList = document.querySelector("#t-body");
+const numberTaskTeg = document.querySelector(".form-title span"); //  Тег Номер завдання = Тег html
+const mult2RandomTeg = document.querySelector(".random-sub"); //  Тег Множник  з рандомної черги = Тег html
+const resultDescrTeg = document.querySelector("#result-answ"); // Тег Відповідь message = Тег html
+const tableList = document.querySelector("#t-body"); // Тег для рендеру таблиці прогресу
 
 // ==== audio players  =====
 const playerGameWon = document.querySelector(".sounds-game-won"); // Player Won
@@ -44,12 +39,22 @@ const subTeg_1 = document.querySelector(".sub-1"); // Перший множни�
 const select = document.querySelector("#_select"); //  Стягуємо Тег "Select"
 // console.log(select.value);
 
+//  ==== Кнопка очищення localStorage =====
+const removeLocalStor = document.querySelector("#remove-item"); //
+removeLocalStor.addEventListener("click", ()=> {
+  localStorage.removeItem("school");
+  logList.innerHTML = "";
+  console.log("removeItem");
+});
 
+//  ==== input select для вибору користувача =====
+onSetUsername();
 
 
 // ======== MODAL WINDOW ========
 
 const openModalBtn = document.querySelector("[data-modal-open]");
+openModalBtn.disabled = true;
 const closeModalBtn = document.querySelector("[data-modal-close]");
 const modal = document.querySelector("[data-modal]");
 
@@ -75,7 +80,7 @@ let isOpenModal = false;
 
 
 
-// ===== Rendet LogList at start page ======
+// ===== Render LogList at start page ======
 const getLocalStorage = localStorage.getItem("school") ?? "";
 
 if(getLocalStorage !== "") {
@@ -91,7 +96,7 @@ if(getLocalStorage !== "") {
 }
 
 
-tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr));
+// tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr));
 
 
 // ======== openModal =========
@@ -100,16 +105,21 @@ function openModal () {
     console.log("openModal is opened!");
     return;
   } 
+  // const modalFormInput = document.querySelector(".modal-form-input");
+  // modalFormInput.value = "b";
+  // modalFormInput.focus();
+  // testInput.focus();
   isOpenModal = true;
   modal.classList.remove("is-hidden");
   closeModalBtn.addEventListener("click", closeModal);
   document.addEventListener("keydown", closeModalEsc);
 
+
   mult_1 = Number(select.value);
   subTeg_1.textContent = select.value;
-
   mult2RandomArr = randomLine(); // Масив з рандомної черги
   mult2RandomTeg.textContent = mult2RandomArr[numberTask - 1]; // вивід наступного множника на екран 
+  // modalFormInput.focus();
   onStartTimer();
 }
 
@@ -136,19 +146,6 @@ function closeModal() {
 
 
 
-// Завантаження звуків
-
-// const soundWin_1s = new Audio();
-// soundWin_1s.src = "../sounds/sound-win-1s.ogg"; // 1s
-
-// const soundWin_3s = new Audio();
-// soundWin_3s.src = "../sounds/game-won.ogg"; // 3s
-
-// const soundLost = new Audio();
-// soundLost.src = "../sounds/sound-lost.ogg"; // 1s
-
-
-
 // ======================= FORM SUBMIE =====================
 
 const myForm = document.querySelector(".modal-form");
@@ -158,7 +155,8 @@ let lostFlag = false;
 
 function onSubmit(event) {
   event.preventDefault();
-  const inputValue = event.currentTarget.answer.value;
+  // const inputValue = event.currentTarget.answer.value;
+  const inputValue = event.target.answer.value;
   if(inputValue === "") {
     alert("Потрібно ввести число!");
     return;
@@ -175,31 +173,23 @@ function onSubmit(event) {
   playerSoundLost.pause();
   playerSoundLost.currentTime = 0;
 
-  // soundWin_1s.pause();
-  // soundWin_1s.currentTime = 0;
-  // soundLost.pause();
-  // soundLost.currentTime = 0;
-
   
   if(mult2RandomArr[numberTask - 1] * mult_1 === resultAnswArr[numberTask - 1]) {
     rightAnswer +=1;
   }
-  // console.log(numberTask);
+  
   if(numberTask < 8) {
     if(mult2RandomArr[numberTask - 1] * mult_1 === resultAnswArr[numberTask - 1]) {
       // console.log("Win");
-      // soundWin_1s.play();
       playerSoundWin.play();
     }
     else {
       // console.log("Lost");
-      // soundLost.play();
       playerSoundLost.play();
       lostFlag = true;
     }
   }
   else {
-    // console.log("I am here");
     if(!lostFlag) {
       console.log("Seccess!");
       // soundWin_3s.play();
@@ -213,17 +203,17 @@ function onSubmit(event) {
   numberTask += 1;
 
 
-  // === raund finish ===
+  // === finish  test ===
   if(numberTask >= 9) {
     numberTask = 1;
     lostFlag = false;
     numberTaskTeg.textContent = numberTask; // рестарт номера задачі на екран 1
-    openModalBtn.textContent = "Спробувати ще раз";
+    // openModalBtn.textContent = "Спробувати ще раз";
     mult2RandomTeg.textContent = 1; // множник стартує з 1
     
 
     const logObject = {
-      userName: "Ілля",
+      userName,
       needTime: timeCounter,
       rightAnswer,
       mult_1,
@@ -233,7 +223,7 @@ function onSubmit(event) {
 
 
     const findIndx = logObjectArr.findIndex(item => {
-      return item.userName === "Ілля" && item.mult_1 === mult_1;
+      return item.userName === userName && item.mult_1 === mult_1;
     });
 
 
@@ -251,7 +241,8 @@ function onSubmit(event) {
       }  
     }
 
-    tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr));
+    // ===== Render LogList at finish  test ======
+    tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
     // logObjectArr.push(logObject);
 
 
@@ -279,9 +270,69 @@ function onSubmit(event) {
 
 
 
+// =========== FUNCTIONS === FUNCTIONS ===== FUNCTIONS ===========
 
 
+//  ==== input select для вибору користувача =====
+function onSetUsername() {
+  const helloUserTeg = document.querySelector(".main-title"); // Тег для вітання користувача
+  helloUserTeg.style = "color: red";
+  helloUserTeg.textContent = "Обери користувача!";
+  
 
+  const userNameSelect = document.querySelector("#user-name-select"); // Тег Select для вибору користувача
+  userNameSelect.addEventListener("change", (event)=> {
+  
+    // const val = userNameSelect.value; // Ok
+    // const val = event.target.value; // Ok
+    const val = event.currentTarget.value; // Ok
+    if(val === "username_0") {
+      openModalBtn.disabled = true;
+      helloUserTeg.style = "color: red";
+      helloUserTeg.textContent = "Обери користувача!";
+      // alert("Обери користувача!");
+      return;
+    }
+
+    const idx = event.currentTarget.selectedIndex;
+    
+    // === USERNAME ===
+    userName = event.currentTarget.options[idx].text; // Ok
+    // userName = event.currentTarget.options[idx].textContent; // Ok
+
+    helloUserTeg.style = "color: green";
+    // helloUserTeg.classList.add("special");
+    helloUserTeg.textContent = `Вітаю ${userName}! 😀`;
+    
+    tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
+    openModalBtn.disabled = false;
+ 
+    
+    // console.log("select-value", val);
+    // console.log("select-idx", idx);
+    console.log("select-text", userName);
+  });
+}
+
+
+// // onSetUsername();
+
+// const userNameSelect = document.querySelector("#user-name-select"); // Тег Select для вибору користувача
+// userNameSelect.addEventListener("change", (event)=> {
+  
+//   // const val = userNameSelect.value; // Ok
+//   // const val = event.target.value; // Ok
+//   const val = event.currentTarget.value; // Ok
+//   const idx = event.currentTarget.selectedIndex;
+//   // const selectText = event.currentTarget.options[idx].textContent; // Ok
+//   const selectText = event.currentTarget.options[idx].text; // Ok
+
+//     // logList.innerHTML = "";
+  
+//   console.log("select-value", val);
+//   console.log("select-idx", idx);
+//   console.log("select-text", selectText);
+// });
 
 
 

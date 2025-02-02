@@ -22,16 +22,16 @@ const setting = {
 
 // ===== FUNCTIONS =============
 
-export function createProgressArr(dataarr) {
+export function createProgressArr(dataarr, usename) {
     const progressArr = [];
     for (let i=0; i<8; i+=1) {
         // фыльтрування по імені та множнику (2-9)
         const newArr = dataarr.filter(item => {
-            return item.userName === "Ілля" && item.mult_1 === i+2;
+            return item.userName === usename && item.mult_1 === i+2;
         });
         
         if(newArr.length === 0) {
-            progressArr[i] = {userName: "Noname", mult_1: i+2, rightAnswer: "-", needTime: "-"};
+            progressArr[i] = {userName: usename, mult_1: i+2, rightAnswer: "-", needTime: "-"};
             continue; 
         }
         progressArr[i] = newArr[0];

@@ -13,9 +13,9 @@
 
 
 .setting-form {
-    width: 160px;
+    width: 200px;
     margin: 0 auto;
-    font-size: 22px;
+    font-size: 20px;
 }
 #_select {
     width: 50px;
@@ -69,7 +69,12 @@
 
 
 /* === Таблиця досягнення === */
-  .schedule-body > tr > td:hover {
+  /* .schedule-body > tr > td:hover {
+    background-color: tomato;
+    color: white;
+  } */
+
+  .schedule-body > tr:hover {
     background-color: tomato;
     color: white;
   }
@@ -80,7 +85,6 @@
     font-size: 20px;
     margin: 20px auto;
     text-align: center;
-
   }
 
   .schedule th,

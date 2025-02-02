@@ -14,6 +14,24 @@ const playrBox = document.querySelector("#player-container");
 
 // Завантаження звуків
 
+
+
+// Завантаження звуків
+
+// const soundWin_1s = new Audio();
+// soundWin_1s.src = "../sounds/sound-win-1s.ogg"; // 1s
+
+// const soundWin_3s = new Audio();
+// soundWin_3s.src = "../sounds/game-won.ogg"; // 3s
+
+// const soundLost = new Audio();
+// soundLost.src = "../sounds/sound-lost.ogg"; // 1s
+
+  // soundWin_1s.pause();
+  // soundWin_1s.currentTime = 0;
+  // soundLost.pause();
+  // soundLost.currentTime = 0;
+
 // const soundCrash = new Audio();
 // soundCrash.src = "../sounds/crash1.wav";
 
