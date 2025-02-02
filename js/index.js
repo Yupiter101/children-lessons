@@ -15,6 +15,7 @@ let mult_1 = 2; // Змінна про перший множник, стягує
 let timeCounter = 0;
 let interval_Id = null; 
 let rightAnswer = 0; // Лічильник правильних відповідей
+let isSound = true;
 
 
 const myTimer = document.querySelector(".my-timer");
@@ -33,19 +34,42 @@ const playerGameWon = document.querySelector(".sounds-game-won"); // Player Won
 const playerSoundWin = document.querySelector(".sounds-win"); // Player Win
 const playerSoundLost = document.querySelector(".sounds-lost"); // Player Lost
 
+// ==== sound off/on  =====
+const soundTogle = document.querySelector("#sound-togle"); //
+soundTogle.addEventListener("change", ()=> {
+  isSound = !isSound;
+});
+
 
 // ==== Select 2 - 9 =====
 const subTeg_1 = document.querySelector(".sub-1"); // Перший множник  = Тег html
 const select = document.querySelector("#_select"); //  Стягуємо Тег "Select"
 // console.log(select.value);
 
+
 //  ==== Кнопка очищення localStorage =====
+// const removeLocalStor = document.querySelector("#remove-item"); //
+// removeLocalStor.addEventListener("click", ()=> {
+
+//   localStorage.removeItem("school");
+//   logList.innerHTML = "";
+//   console.log("removeItem");
+
+// });
+
 const removeLocalStor = document.querySelector("#remove-item"); //
 removeLocalStor.addEventListener("click", ()=> {
-  localStorage.removeItem("school");
-  logList.innerHTML = "";
-  console.log("removeItem");
+
+  const removeLogUsername = logObjectArr.filter(item => item.userName != userName);
+  logObjectArr = [...removeLogUsername];
+  //  ==== Збереження у localStorage =====
+  localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
+  tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
+  renderLogList(logObjectArr);
 });
+
+
+
 
 //  ==== input select для вибору користувача =====
 onSetUsername();
@@ -83,18 +107,29 @@ let isOpenModal = false;
 // ===== Render LogList at start page ======
 const getLocalStorage = localStorage.getItem("school") ?? "";
 
+// if(getLocalStorage !== "") {
+//   logObjectArr = jsonParser(getLocalStorage);
+//   if(logObjectArr.length) {
+//     const markup = logObjectArr.map( item => {
+//         return renderLogListItem(item);
+//     }).join("");
+//     logList.innerHTML = markup;
+//   }
+// }
+
 if(getLocalStorage !== "") {
   logObjectArr = jsonParser(getLocalStorage);
-  // console.log(logObjectArr);
-  if(logObjectArr.length) {
-    // logObjectArr = JSON.parse(getLocalStorage);
-    const markup = logObjectArr.map( item => {
-        return renderLogList(item);
+  renderLogList(logObjectArr);
+}
+
+function renderLogList(arr) {
+  if(arr.length) {
+    const markup = arr.map( item => {
+        return renderLogListItem(item);
     }).join("");
     logList.innerHTML = markup;
   }
 }
-
 
 // tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr));
 
@@ -105,10 +140,7 @@ function openModal () {
     console.log("openModal is opened!");
     return;
   } 
-  // const modalFormInput = document.querySelector(".modal-form-input");
-  // modalFormInput.value = "b";
-  // modalFormInput.focus();
-  // testInput.focus();
+ 
   isOpenModal = true;
   modal.classList.remove("is-hidden");
   closeModalBtn.addEventListener("click", closeModal);
@@ -152,7 +184,6 @@ const myForm = document.querySelector(".modal-form");
 myForm.addEventListener("submit", onSubmit);
 let lostFlag = false;
 
-
 function onSubmit(event) {
   event.preventDefault();
   // const inputValue = event.currentTarget.answer.value;
@@ -164,44 +195,36 @@ function onSubmit(event) {
   
   resultAnswArr[numberTask - 1] = Number(inputValue); // Записуєм введену відповідь у масив
 
-
   // ====== sound =======
 
-  playerSoundWin.pause();
-  playerSoundWin.currentTime = 0;
-
-  playerSoundLost.pause();
-  playerSoundLost.currentTime = 0;
-
-  
   if(mult2RandomArr[numberTask - 1] * mult_1 === resultAnswArr[numberTask - 1]) {
     rightAnswer +=1;
   }
-  
-  if(numberTask < 8) {
-    if(mult2RandomArr[numberTask - 1] * mult_1 === resultAnswArr[numberTask - 1]) {
-      // console.log("Win");
-      playerSoundWin.play();
+
+  if(isSound) {
+    playerSoundWin.pause();
+    playerSoundWin.currentTime = 0;
+    playerSoundLost.pause();
+    playerSoundLost.currentTime = 0;
+    
+    if(numberTask < 8) {
+      if(mult2RandomArr[numberTask - 1] * mult_1 === resultAnswArr[numberTask - 1]) {
+        playerSoundWin.play();
+      }
+      else {
+        playerSoundLost.play();
+        lostFlag = true;
+      }
     }
     else {
-      // console.log("Lost");
-      playerSoundLost.play();
-      lostFlag = true;
+      if(!lostFlag) {
+        console.log("Seccess!");
+        playerGameWon.play();
+      }
     }
-  }
-  else {
-    if(!lostFlag) {
-      console.log("Seccess!");
-      // soundWin_3s.play();
-      playerGameWon.play();
-    }
-    // else {
-    //   soundLost.play();
-    // }
   }
 
   numberTask += 1;
-
 
   // === finish  test ===
   if(numberTask >= 9) {
@@ -210,7 +233,6 @@ function onSubmit(event) {
     numberTaskTeg.textContent = numberTask; // рестарт номера задачі на екран 1
     // openModalBtn.textContent = "Спробувати ще раз";
     mult2RandomTeg.textContent = 1; // множник стартує з 1
-    
 
     const logObject = {
       userName,
@@ -220,12 +242,9 @@ function onSubmit(event) {
       id: onDateTime(),
     };
 
-
-
     const findIndx = logObjectArr.findIndex(item => {
       return item.userName === userName && item.mult_1 === mult_1;
     });
-
 
     if(findIndx === -1) {
       logObjectArr.push(logObject);
@@ -245,10 +264,10 @@ function onSubmit(event) {
     tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
     // logObjectArr.push(logObject);
 
-
+    //  ==== Збереження у localStorage =====
     localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
-    logList.insertAdjacentHTML("beforeend", renderLogList(logObject)); // рендер логів
-    // logList.insertAdjacentHTML("afterbegin", renderLogList(logObject)); // рендер логів
+    logList.insertAdjacentHTML("beforeend", renderLogListItem(logObject)); // рендер логів
+    // logList.insertAdjacentHTML("afterbegin", renderLogListItem(logObject)); // рендер логів
 
 
 
@@ -307,9 +326,6 @@ function onSetUsername() {
     tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
     openModalBtn.disabled = false;
  
-    
-    // console.log("select-value", val);
-    // console.log("select-idx", idx);
     console.log("select-text", userName);
   });
 }
@@ -352,7 +368,7 @@ function jsonParser(datajson) {
 
 
 
-function renderLogList({ id, userName, mult_1, needTime, rightAnswer }) {
+function renderLogListItem({ id, userName, mult_1, needTime, rightAnswer }) {
   const formatTime = String(needTime).padStart(3, '0');
   return `<li>${id}. ${userName}. Time: ${formatTime} s. Level: ${mult_1} Result: ${rightAnswer}/8</li>`;
 }
@@ -429,3 +445,7 @@ function renderResultList() {
 //   console.log(event.currentTarget.value);
 
 // });
+
+
+
+

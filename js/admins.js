@@ -95,6 +95,6 @@ export function getFormatTime(time) {
     }
     let min = Math.floor(time/60);
     let sec = Math.floor(time%60);
-    sec.toString().padStart(2, '0');
+    sec = sec.toString().padStart(2, '0');
     return `${min}:${sec}`;
 }
