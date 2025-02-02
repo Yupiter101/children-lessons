@@ -73,8 +73,6 @@
                     <option value="9">9</option>
                   </select>
                 </form>
-                <!-- <h3>TImer: <span class="my-timer"></span></h3> -->
-                <!-- <h2>Множення на 2</h2> -->
             </div>
         </section>
 
@@ -121,14 +119,6 @@
                     <td>🎖</td>
                     <td>🥈</td>
                     <td>🏆</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>8/8</td>
-                    <td>0:00</td>
-                    <td>0:20</td>
-                    <td>0:15</td>
-                    <td>0:10</td>
                   </tr> -->
               </tbody>
             </table>
@@ -150,15 +140,10 @@
         <!-- PLAYER -->
         <section class="section-about">
           <div class="container">
-              <h3>Audio</h3>
-              <!-- <audio src="../sounds/crash1.wav" controls autoplay loop preload="auto"></audio> -->
-              <!-- <audio class="my-audio" src="./sounds/music1.ogg" controls></audio> -->
+              <!-- <h3>Audio</h3> -->
               
               <div id="player-container">
-                <audio class="my-audio" controls>
-                  <source src="./sounds/music1.ogg" type="audio/ogg">
-                </audio>
-
+               
                 <audio class="sounds-game-won">
                   <source src="./sounds/game-won.ogg" type="audio/ogg">
                   <source src="./sounds/game-won.wav" type="audio/wav">
@@ -175,57 +160,14 @@
                 </audio>
               </div>
 
-              <button type="button" id="play">Play</button>
+              <!-- <button type="button" id="play">Play</button>
               <button type="button" id="pause">Pause</button>
-              <button type="button" id="stop">Stop</button>
+              <button type="button" id="stop">Stop</button> -->
           </div>
         </section>
 
-
-
-        <section class="section-about">
-          <div class="container">
-              <h3>Джерела</h3>
-              <ul>
-                <li><a href="https://www.youtube.com/watch?v=VXWvfrmpapI&list=PLYElE_rzEw_sHeIIv7BMliQF5zB7BliJE&ab_channel=Frankslaboratory" 
-                  target="_blank">www.youtube.com</a></li>
-                <li><a href="https://opengameart.org/" target="_blank">https://opengameart</a></li>
-              </ul>
-          </div>
-      </section>
-
-
-      <section class="section-about">
-            <div class="container">
-              <h2>Аудио. Заметки</h2>
-              <ol>
-                <li>HTML</li>
-                <li><code>&lt;audio class="my-audio" src="./sounds/music1.ogg" controls&gt;&lt;/audio&gt;</code></li>
-                <li>JS</li>
-                <li><code>const playBtn = document.querySelector("#play");</code></li>
-                <li>Play: <code>myPlayer.play();</code></li>
-                <li>Pause: <code>myPlayer.pause();</code></li>
-                <li>Stop: <code>myPlayer.pause(); myPlayer.currentTime = 0;</code></li>
-                <li>Duration: <code>myPlayer.duration</code> seconds</li>
-                <li>Volume: <code>myPlayer.volume</code> 0.0 - 1.0</li>
-                <li><code>soundCrash.addEventListener("playing", ()=> console.log("Audio started"));</code></li>
-                <li><code>soundCrash.addEventListener("ended", ()=> console.log("Audio stoped"));</code></li>
-                
-                <li><a href="https://www.youtube.com/watch?v=D4xqV7VrXNI&ab_channel=%D0%9C%D0%B0%D0%BD%D1%96%D0%B2%D1%86%D0%B5%D0%BC">
-                  Посилання на ресурс
-                </a></li>
-              </ol>
-              <pre>
-  myPlayer.addEventListener("timeupdate", onUpdateTime);
-  function onUpdateTime(event) {//
-    const { duration, currentTime } = event.srcElement;
-    console.log(duration, currentTime );}</pre>
-            </div>
-        </section>
-
-     
-
-         <section class="section-about">
+ 
+         <!-- <section class="section-about">
             <div class="container">
               <h3>Побажання:</h3>
               <ol>
@@ -245,7 +187,7 @@
                 <li>Стилізація</li>
               </ol>
             </div>
-        </section>
+        </section> -->
 
         
 
@@ -324,42 +266,3 @@
     
 </body>
 </html>
-
-
-
-<!-- <section class="section-about">
-  <div class="container">
-    <table border="5" bordercolor="red" align="center">
-      <tr>
-          <th colspan="3">ABCD</th> 
-      </tr>
-      <tr>
-          <th>Name</th>
-          <th>Origin</th>
-          <th>Photo</th>
-      </tr>
-      <tr>
-          <td>Bugatti Veyron Super Sport</td>
-          <td>Molsheim, Alsace, France</td>
-          <td><img src="./img/dc_dc.jpg" alt="dfg" border=3 height=40 width=60></img></td>
-      </tr>
-      <tr>
-          <td>SSC Ultimate Aero TT  TopSpeed</td>
-          <td>United States</td>
-          <td border=3 height=40 width=100>Photo1</td>
-      </tr>
-      <tr>
-          <td>Koenigsegg CCX</td>
-          <td>Ängelholm, Sweden</td>
-          <td border=4 height=40 width=300>Photo1</td>
-      </tr>
-    
-      
-      <tr>
-          <td> Pagani Zonda F Clubsport</td>
-          <td>Modena, Italy</td>
-          <td height=40 width=100>Photo1</td>
-      </tr>
-  </table>
-  </div>
-</section> -->

@@ -145,7 +145,8 @@ ul {
 .section-about,
 .section-hero,
 .page-footer {
-    background-color: #fee;
+    /* background-color: #fee; */
+    background-color: #e0f5df;
     max-width: 1140px;
     min-width: 420px;
     margin: 0 auto 40px;
@@ -174,7 +175,8 @@ ul {
     /* margin: 0 auto; */
     padding: 10px 15px;
     /* background-color: #edf4d7; */
-    outline: 1px solid black;
+    /* outline: 1px solid black; */
+    outline: 1px solid #41a53c;
   }
 
 
