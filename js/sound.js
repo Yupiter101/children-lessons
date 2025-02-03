@@ -2,18 +2,13 @@ console.log("Hello from sound js");
 
 
 
+
 // const myPlayer = document.querySelector(".my-audio"); // Player
 
 // const playBtn = document.querySelector("#play");
 // const pauseBtn = document.querySelector("#pause");
 // const stopBtn = document.querySelector("#stop");
 // const playrBox = document.querySelector("#player-container");
-
-
-
-
-// Завантаження звуків
-
 
 
 // Завантаження звуків
@@ -87,12 +82,6 @@ console.log("Hello from sound js");
 //     const { duration, currentTime } = event.srcElement;
 //     console.log(duration, currentTime );
 // }
-
-
-
-
-
-
 
 
 

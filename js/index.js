@@ -1,8 +1,21 @@
 console.log("Hello from ILLIA_ index.js");
 // "use strict"; // код в суворому режимі
 
+
+// Repeta:
+// const textArea = currentTarget.value; // Всплівает
+// const textArea = target.value; // завжди однакове
+// npm i lodash.trottle
+// import trottle from "lodash.trottle"
+// https://handlebarsjs.com/
+// perfomance.now(); - Измерение производительности функций в JavaScript
+// Шаблонізація
+// event.currentTarget.reset();
+
+
 import { randomLine, onTimeCount, onDateTime } from "./admins.js";
-import { createProgressArr, renderProgressList } from "./render.js";
+import { createProgressArr, renderProgressList } from "./progress.js";
+import { jsonParser, renderLogList, renderLogListItem } from "./loglist.js";
 
 
 // =========== Таблиця множення =================
@@ -15,7 +28,7 @@ let mult_1 = 2; // Змінна про перший множник, стягує
 let timeCounter = 0;
 let interval_Id = null; 
 let rightAnswer = 0; // Лічильник правильних відповідей
-let isSound = true;
+let isSound = false;
 
 
 const myTimer = document.querySelector(".my-timer");
@@ -47,15 +60,6 @@ const select = document.querySelector("#_select"); //  Стягуємо Тег "
 // console.log(select.value);
 
 
-//  ==== Кнопка очищення localStorage =====
-// const removeLocalStor = document.querySelector("#remove-item"); //
-// removeLocalStor.addEventListener("click", ()=> {
-
-//   localStorage.removeItem("school");
-//   logList.innerHTML = "";
-//   console.log("removeItem");
-
-// });
 
 const removeLocalStor = document.querySelector("#remove-item"); //
 removeLocalStor.addEventListener("click", ()=> {
@@ -65,14 +69,66 @@ removeLocalStor.addEventListener("click", ()=> {
   //  ==== Збереження у localStorage =====
   localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
   tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
-  renderLogList(logObjectArr);
+  logList.innerHTML = renderLogList(logObjectArr);
 });
 
 
 
-
 //  ==== input select для вибору користувача =====
-onSetUsername();
+
+const helloUserTeg = document.querySelector(".main-title"); // Тег для вітання користувача
+helloUserTeg.style = "color: red";
+helloUserTeg.textContent = "Обери користувача!";
+
+const userNameSelect = document.querySelector("#user-name-select"); // Тег Select для вибору користувача
+userNameSelect.addEventListener("change", onHandleUserName);
+
+function onHandleUserName(event) {
+    // const val = userNameSelect.value; // Ok
+    // const val = event.target.value; // Ok
+    const val = event.currentTarget.value; // Ok
+    if(val === "username_0") {
+      openModalBtn.disabled = true;
+      helloUserTeg.style = "color: red";
+      helloUserTeg.textContent = "Обери користувача!";
+      // alert("Обери користувача!");
+      return;
+    }
+
+    const idx = event.currentTarget.selectedIndex;
+      
+    // === USERNAME ===
+    userName = event.currentTarget.options[idx].text; // Ok
+    // userName = event.currentTarget.options[idx].textContent; // Ok
+
+    helloUserTeg.style = "color: green";
+    // helloUserTeg.classList.add("special");
+    helloUserTeg.textContent = `Вітаю ${userName}! 😀`;
+      
+    tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
+    openModalBtn.disabled = false;
+}
+
+//  ==== Додати нового користувача =====
+const addUserBtn = document.querySelector("#addUser");
+addUserBtn.addEventListener("click", onHandleAddUser);
+
+function onHandleAddUser() {
+  // console.log("click");
+  const createForm = document.createElement("form");
+  createForm.classList.add("create-form");
+  addUserBtn.after(createForm);
+  const newMyForm = document.querySelector(".create-form");
+
+  const markupForm = `
+      <label>
+        <input type="text" name="newUser">
+      </label>
+      <button type="submit">Save</button>
+  `;
+  newMyForm.insertAdjacentHTML("beforeend", markupForm);
+}
+
 
 
 // ======== MODAL WINDOW ========
@@ -87,51 +143,12 @@ openModalBtn.addEventListener("click", openModal);
 let isOpenModal = false;
 
 
-
-// Repeta:
-// const textArea = currentTarget.value; // Всплівает
-// const textArea = target.value; // завжди однакове
-// npm i lodash.trottle
-// import trottle from "lodash.trottle"
-// https://handlebarsjs.com/
-// perfomance.now(); - Измерение производительности функций в JavaScript
-// Шаблонізація
-// event.currentTarget.reset();
-// const myObjStorage = localStorage.getItem("school") ?? '';
-// if (myObjStorage) {
-//   // Code
-// }
-
-
-
 // ===== Render LogList at start page ======
 const getLocalStorage = localStorage.getItem("school") ?? "";
-
-// if(getLocalStorage !== "") {
-//   logObjectArr = jsonParser(getLocalStorage);
-//   if(logObjectArr.length) {
-//     const markup = logObjectArr.map( item => {
-//         return renderLogListItem(item);
-//     }).join("");
-//     logList.innerHTML = markup;
-//   }
-// }
-
 if(getLocalStorage !== "") {
   logObjectArr = jsonParser(getLocalStorage);
-  renderLogList(logObjectArr);
+  logList.innerHTML = renderLogList(logObjectArr);
 }
-
-function renderLogList(arr) {
-  if(arr.length) {
-    const markup = arr.map( item => {
-        return renderLogListItem(item);
-    }).join("");
-    logList.innerHTML = markup;
-  }
-}
-
-// tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr));
 
 
 // ======== openModal =========
@@ -260,24 +277,17 @@ function onSubmit(event) {
       }  
     }
 
-    // ===== Render LogList at finish  test ======
+    // ===== Render ProgressList at finish  test ======
     tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
-    // logObjectArr.push(logObject);
 
     //  ==== Збереження у localStorage =====
     localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
     logList.insertAdjacentHTML("beforeend", renderLogListItem(logObject)); // рендер логів
     // logList.insertAdjacentHTML("afterbegin", renderLogListItem(logObject)); // рендер логів
 
-
-
-
     resultDescrTeg.innerHTML = renderResult(); // Вівід повідомлення та рендер контейнера для списку
     renderResultList(); // рендер рузультатів віддповідей 
     closeModal();
-
-    // renderProgressList(logObjectArr);
-    // console.log("closeModal");
   }
 
   numberTaskTeg.textContent = numberTask; // вивід номера задачі на екран
@@ -288,90 +298,8 @@ function onSubmit(event) {
 
 
 
-
 // =========== FUNCTIONS === FUNCTIONS ===== FUNCTIONS ===========
 
-
-//  ==== input select для вибору користувача =====
-function onSetUsername() {
-  const helloUserTeg = document.querySelector(".main-title"); // Тег для вітання користувача
-  helloUserTeg.style = "color: red";
-  helloUserTeg.textContent = "Обери користувача!";
-  
-
-  const userNameSelect = document.querySelector("#user-name-select"); // Тег Select для вибору користувача
-  userNameSelect.addEventListener("change", (event)=> {
-  
-    // const val = userNameSelect.value; // Ok
-    // const val = event.target.value; // Ok
-    const val = event.currentTarget.value; // Ok
-    if(val === "username_0") {
-      openModalBtn.disabled = true;
-      helloUserTeg.style = "color: red";
-      helloUserTeg.textContent = "Обери користувача!";
-      // alert("Обери користувача!");
-      return;
-    }
-
-    const idx = event.currentTarget.selectedIndex;
-    
-    // === USERNAME ===
-    userName = event.currentTarget.options[idx].text; // Ok
-    // userName = event.currentTarget.options[idx].textContent; // Ok
-
-    helloUserTeg.style = "color: green";
-    // helloUserTeg.classList.add("special");
-    helloUserTeg.textContent = `Вітаю ${userName}! 😀`;
-    
-    tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
-    openModalBtn.disabled = false;
- 
-    console.log("select-text", userName);
-  });
-}
-
-
-// // onSetUsername();
-
-// const userNameSelect = document.querySelector("#user-name-select"); // Тег Select для вибору користувача
-// userNameSelect.addEventListener("change", (event)=> {
-  
-//   // const val = userNameSelect.value; // Ok
-//   // const val = event.target.value; // Ok
-//   const val = event.currentTarget.value; // Ok
-//   const idx = event.currentTarget.selectedIndex;
-//   // const selectText = event.currentTarget.options[idx].textContent; // Ok
-//   const selectText = event.currentTarget.options[idx].text; // Ok
-
-//     // logList.innerHTML = "";
-  
-//   console.log("select-value", val);
-//   console.log("select-idx", idx);
-//   console.log("select-text", selectText);
-// });
-
-
-
-
-
-
-
-function jsonParser(datajson) {
-  try {
-      return JSON.parse(datajson);
-  } catch (error) {
-      // console.error(error);
-      // return "Error parse JSON!";
-      return [];
-  }
-}
-
-
-
-function renderLogListItem({ id, userName, mult_1, needTime, rightAnswer }) {
-  const formatTime = String(needTime).padStart(3, '0');
-  return `<li>${id}. ${userName}. Time: ${formatTime} s. Level: ${mult_1} Result: ${rightAnswer}/8</li>`;
-}
 
 
 function onStartTimer() {
@@ -433,19 +361,3 @@ function renderResultList() {
   listTeg.innerHTML = markup;
   
 }
-
-
-
-
-// ==== Select =====
-// const select = document.querySelector("#_select");
-// console.log(select.value);
-
-// select.addEventListener("change", (event)=> {
-//   console.log(event.currentTarget.value);
-
-// });
-
-
-
-
