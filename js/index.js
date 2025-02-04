@@ -54,19 +54,22 @@ soundTogle.addEventListener("change", ()=> {
 });
 
 
-// ==== Select 2 - 9 =====
+// ==== Select множника 2 - 9 =====
 const subTeg_1 = document.querySelector(".sub-1"); // Перший множник  = Тег html
 const select = document.querySelector("#_select"); //  Стягуємо Тег "Select"
 // console.log(select.value);
 
 
 
+
+
+
+
+// === removeLocalStor Очищення історії користувача =========
 const removeLocalStor = document.querySelector("#remove-item"); //
 removeLocalStor.addEventListener("click", ()=> {
-
   const removeLogUsername = logObjectArr.filter(item => item.userName != userName);
   logObjectArr = [...removeLogUsername];
-  //  ==== Збереження у localStorage =====
   localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
   tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
   logList.innerHTML = renderLogList(logObjectArr);
@@ -74,7 +77,7 @@ removeLocalStor.addEventListener("click", ()=> {
 
 
 
-//  ==== input select для вибору користувача =====
+//  ==== Select для вибору користувача =====
 
 const helloUserTeg = document.querySelector(".main-title"); // Тег для вітання користувача
 helloUserTeg.style = "color: red";
@@ -91,43 +94,110 @@ function onHandleUserName(event) {
       openModalBtn.disabled = true;
       helloUserTeg.style = "color: red";
       helloUserTeg.textContent = "Обери користувача!";
-      // alert("Обери користувача!");
       return;
     }
-
-    const idx = event.currentTarget.selectedIndex;
-      
+    const idx = event.currentTarget.selectedIndex;  
     // === USERNAME ===
     userName = event.currentTarget.options[idx].text; // Ok
-    // userName = event.currentTarget.options[idx].textContent; // Ok
+    renderUserName(userName);
+}
 
+// Тут вітання і ProgressList
+function renderUserName(u_name) {
     helloUserTeg.style = "color: green";
-    // helloUserTeg.classList.add("special");
-    helloUserTeg.textContent = `Вітаю ${userName}! 😀`;
-      
-    tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
+    helloUserTeg.textContent = `Вітаю ${u_name}! 😀`;
+    tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, u_name));
     openModalBtn.disabled = false;
 }
 
-//  ==== Додати нового користувача =====
-const addUserBtn = document.querySelector("#addUser");
-addUserBtn.addEventListener("click", onHandleAddUser);
 
-function onHandleAddUser() {
-  // console.log("click");
-  const createForm = document.createElement("form");
-  createForm.classList.add("create-form");
-  addUserBtn.after(createForm);
-  const newMyForm = document.querySelector(".create-form");
+// ===== getLocalStorage and Render LogList at start page ======
+const getLocalStorage = localStorage.getItem("school") ?? "";
+if(getLocalStorage !== "") {
+  logObjectArr = jsonParser(getLocalStorage);
+  logList.innerHTML = renderLogList(logObjectArr);
 
-  const markupForm = `
-      <label>
-        <input type="text" name="newUser">
-      </label>
-      <button type="submit">Save</button>
-  `;
-  newMyForm.insertAdjacentHTML("beforeend", markupForm);
+  const uniqueUsers = getUsers(logObjectArr);
+
+  uniqueUsers.forEach((value, index) => {
+    renderSelectUsername(index + 1, value);
+    // console.log(`Індекс: ${index + 1}, Значення: ${value}`);
+  });
+
 }
+
+function getUsers(arr) {
+  return arr.reduce((acc, item)=> {
+    if(!acc.includes(item.userName)) {
+      acc.push(item.userName);
+    }
+    return acc;
+  }, []);
+}
+// ===== Заповнення списку користувачів ======
+
+
+
+//  === Button Додати нового користувача =====
+const addUserBtn = document.querySelector("#addUser");
+addUserBtn.addEventListener("click", onMakeNewUser);
+
+function onMakeNewUser() {
+  addUserBtn.disabled = true;
+
+  const markupInput = `
+      <input id="input-new-username" 
+        type="text"
+        maxlength="10"
+        name="newUser">
+      <button type="button" data-action="save">Save</button>
+  `;
+  addUserBtn.insertAdjacentHTML('afterend', markupInput); //Рендер input і button після addUserBtn
+
+  const newNameInput = document.querySelector('#input-new-username');
+  const saveButton = document.querySelector('button[data-action="save"]');
+  saveButton.addEventListener('click', onSaveNewUser);
+
+  function onSaveNewUser() {
+    // const markupNewName = `<option value="username_4" selected>${newNameInput.value}</option>`;
+    const nextNumOpt = userNameSelect.options.length;
+    console.log(nextNumOpt);
+    const newName = newNameInput.value.trim();
+    if(newName === "") {
+      alert("Пусте ім'я!");
+      return;
+    }
+    userName = newName;
+    // видалення елементів після збереження
+    newNameInput.remove();
+    saveButton.removeEventListener('click', onSaveNewUser);
+    saveButton.remove();
+    addUserBtn.disabled = false;
+
+    renderSelectUsername(nextNumOpt, userName); // Наповняємо селект новими імям
+    userNameSelect.value = `username_${nextNumOpt}`; // Обираемо його за змовчуванням
+    renderUserName(userName); //  вітання і ProgressList
+  }
+}
+
+function renderSelectUsername(numOption, name) {
+    const markupNewName = `<option value="username_${numOption}">${name}</option>`;
+    userNameSelect.insertAdjacentHTML('beforeend', markupNewName);
+}
+
+
+
+
+
+// const mySelect = document.querySelector("#select-name");
+// console.log(mySelect.options.length);
+
+// for (let option of mySelect.options) {
+//   // console.log(option.value);
+//   // if (option.value === "value3") {
+//   //   console.log(option.text); // Значение 3
+//   // }
+// }
 
 
 
@@ -142,13 +212,6 @@ openModalBtn.addEventListener("click", openModal);
 
 let isOpenModal = false;
 
-
-// ===== Render LogList at start page ======
-const getLocalStorage = localStorage.getItem("school") ?? "";
-if(getLocalStorage !== "") {
-  logObjectArr = jsonParser(getLocalStorage);
-  logList.innerHTML = renderLogList(logObjectArr);
-}
 
 
 // ======== openModal =========
