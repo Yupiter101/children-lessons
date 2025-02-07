@@ -215,6 +215,16 @@ openModalBtn.disabled = true;
 const closeModalBtn = document.querySelector("[data-modal-close]");
 const modal = document.querySelector("[data-modal]");
 
+
+// const modalInput2 = document.querySelector(".modal-form-input2");
+// // modalInput2.autofocus = true;
+// modalInput2.focus();
+
+// const modalInput = document.querySelector(".modal-form-input");
+// modalInput.focus();
+
+
+
 openModalBtn.addEventListener("click", openModal);
 
 let isOpenModal = false;
@@ -230,15 +240,19 @@ function openModal () {
  
   isOpenModal = true;
   modal.classList.remove("is-hidden");
+  
   closeModalBtn.addEventListener("click", closeModal);
   document.addEventListener("keydown", closeModalEsc);
 
+  // const modalInput = document.querySelector(".modal-form-input");
+  // modalInput.focus(); // focus()
+  // console.log(modalInput);
 
   mult_1 = Number(select.value);
   subTeg_1.textContent = select.value;
   mult2RandomArr = randomLine(); // Масив з рандомної черги
   mult2RandomTeg.textContent = mult2RandomArr[numberTask - 1]; // вивід наступного множника на екран 
-  // modalFormInput.focus();
+  modalInput.focus();
   onStartTimer();
 }
 
