@@ -1,6 +1,8 @@
-console.log("Hello from ILLIA_ index.js");
+// console.log("Hello from ILLIA_ index.js");
 // "use strict"; // код в суворому режимі
 
+// let isLoglist = true;
+let isLoglist = false;
 
 // Repeta:
 // const textArea = currentTarget.value; // Всплівает
@@ -71,8 +73,12 @@ removeLocalStor.addEventListener("click", ()=> {
   const removeLogUsername = logObjectArr.filter(item => item.userName != userName);
   logObjectArr = [...removeLogUsername];
   localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
+
   tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, userName));
-  logList.innerHTML = renderLogList(logObjectArr);
+  // loglist
+  if(isLoglist) {
+    logList.innerHTML = renderLogList(logObjectArr);
+  }
 });
 
 
@@ -115,7 +121,12 @@ function renderUserName(u_name) {
 const getLocalStorage = localStorage.getItem("school") ?? "";
 if(getLocalStorage !== "") {
   logObjectArr = jsonParser(getLocalStorage);
-  logList.innerHTML = renderLogList(logObjectArr);
+
+  // loglist
+  if(isLoglist) {
+    logList.innerHTML = renderLogList(logObjectArr);
+  }
+  
 
   const uniqueUsers = getUsers(logObjectArr);
 
@@ -135,6 +146,7 @@ function getUsers(arr) {
   }, []);
 }
 // ===== Заповнення списку користувачів ======
+
 
 
 
@@ -159,14 +171,22 @@ function onMakeNewUser() {
   saveButton.addEventListener('click', onSaveNewUser);
 
   function onSaveNewUser() {
-    // const markupNewName = `<option value="username_4" selected>${newNameInput.value}</option>`;
     const nextNumOpt = userNameSelect.options.length;
-    console.log(nextNumOpt);
+    
+    // console.log(nextNumOpt);
     const newName = newNameInput.value.trim();
     if(newName === "") {
       alert("Пусте ім'я!");
       return;
     }
+    for(let i=0; i<nextNumOpt; i++) {
+      if(newName === userNameSelect.options[i].text) {
+        alert("Таке ім'я вже є!");
+        // console.log(userNameSelect.options[i].text);
+        return;
+      }
+    }
+   
     userName = newName;
     // видалення елементів після збереження
     newNameInput.remove();
@@ -185,19 +205,6 @@ function renderSelectUsername(numOption, name) {
     userNameSelect.insertAdjacentHTML('beforeend', markupNewName);
 }
 
-
-
-
-
-// const mySelect = document.querySelector("#select-name");
-// console.log(mySelect.options.length);
-
-// for (let option of mySelect.options) {
-//   // console.log(option.value);
-//   // if (option.value === "value3") {
-//   //   console.log(option.text); // Значение 3
-//   // }
-// }
 
 
 
@@ -345,8 +352,12 @@ function onSubmit(event) {
 
     //  ==== Збереження у localStorage =====
     localStorage.setItem("school", JSON.stringify(logObjectArr)); // set lockalStorage()
-    logList.insertAdjacentHTML("beforeend", renderLogListItem(logObject)); // рендер логів
-    // logList.insertAdjacentHTML("afterbegin", renderLogListItem(logObject)); // рендер логів
+    // loglist
+    if(isLoglist)  {
+      logList.insertAdjacentHTML("beforeend", renderLogListItem(logObject)); // рендер логів
+      // logList.insertAdjacentHTML("afterbegin", renderLogListItem(logObject)); // рендер логів
+    }
+    
 
     resultDescrTeg.innerHTML = renderResult(); // Вівід повідомлення та рендер контейнера для списку
     renderResultList(); // рендер рузультатів віддповідей 

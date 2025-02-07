@@ -2,7 +2,7 @@
 
 
 export const setting = {
-    base: [11, 14, 14, 11, 14, 14, 14, 14],
+    base: [15, 40, 40, 40, 40, 40, 40, 40],
     getIron() {
         return this.base.map(i=>i+10);
     },

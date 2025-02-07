@@ -13,7 +13,7 @@
 
 
 .setting-form {
-    width: 200px;
+    width: 260px;
     margin: 0 auto;
     font-size: 20px;
 }
@@ -89,10 +89,62 @@
 
   .schedule th,
   .schedule td {
+    width: 80px;
     padding: 0px 8px;
     border: 2px solid #d3ab7c;
   }
 
+  @media (max-width: 420px) {
+    .schedule th,
+    .schedule td {
+        font-size: 16px;
+        padding: 0px 4px;
+        border: 2px solid #d3ab7c;
+    }
+  }
+  
+
   .no-result {
     color: #999;
+  }
+
+
+  .addUser {
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .history-remove-container {
+    text-align: center;
+  }
+
+
+  #user-name-select {
+    min-width: 120px;
+    height: 28px;
+  }
+
+  #user-name-select > option {
+    font-size: 18px;
+  }
+
+  #addUser {
+    height: 30px;
+    margin-right: 20px;
+  }
+
+  #sound-togle{
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+  }
+
+  #remove-item {
+    font-size: 20px;
+    margin-top: 16px;
+  }
+
+  #input-new-username {
+    width: 140px;
+
   }

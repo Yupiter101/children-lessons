@@ -1,4 +1,4 @@
-console.log("progress.js - Робимо прогресліст");
+// console.log("progress.js - Робимо прогресліст");
 
 import { getFormatTime } from "./admins.js";
 import { setting } from "./setting.js";

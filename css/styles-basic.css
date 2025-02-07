@@ -84,7 +84,8 @@ body {
     /* margin-top: 0; */
     font-family: "Roboto", sans-serif;
     line-height: 1.5;
-    background-color: #b9f3b7;
+    /* background-color: #b9f3b7; */
+    background-color: #e0f5df;
     letter-spacing: 0.4px;
     /* color: black; */
     /* width: 1200px; */
@@ -146,9 +147,10 @@ ul {
 .section-hero,
 .page-footer {
     /* background-color: #fee; */
-    background-color: #e0f5df;
+    /* background-color: #e0f5df; */
+
     max-width: 1140px;
-    min-width: 420px;
+    min-width: 360px;
     margin: 0 auto 40px;
   }
   
@@ -176,7 +178,7 @@ ul {
     padding: 10px 15px;
     /* background-color: #edf4d7; */
     /* outline: 1px solid black; */
-    outline: 1px solid #41a53c;
+    /* outline: 1px solid #41a53c; */
   }
 
 
