@@ -1,4 +1,8 @@
 
+/*
+    Тут відмальовується LogList (історія) усіх користувачав
+    Якщо isLoglist = false то не відмальовується
+*/
 
 export function jsonParser(datajson) {
     try {

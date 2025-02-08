@@ -1,8 +1,8 @@
 // notes 
 
-const a = null;
-const b = 0;
-const c = b ?? a;
+// const a = null;
+// const b = 0;
+// const c = b ?? a;
 // console.log(c); // 0
 
 

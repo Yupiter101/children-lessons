@@ -129,14 +129,15 @@
   }
 
   #addUser {
-    height: 30px;
+    height: 28px;
+    font-size: 20px;
     margin-right: 20px;
   }
 
   #sound-togle{
     width: 20px;
     height: 20px;
-    margin-left: 10px;
+    margin-right: 8px;
   }
 
   #remove-item {

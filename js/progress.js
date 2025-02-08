@@ -1,5 +1,10 @@
 // console.log("progress.js - Робимо прогресліст");
 
+/*
+    Тут формується масив з найкращими рузьтатами який відмальовується 
+    як ProgressList
+*/
+
 import { getFormatTime } from "./admins.js";
 import { setting } from "./setting.js";
 

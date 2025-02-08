@@ -63,11 +63,7 @@ const select = document.querySelector("#_select"); //  Стягуємо Тег "
 
 
 
-
-
-
-
-// === removeLocalStor Очищення історії користувача =========
+// === Очищення історії користувача removeLocalStor  =========
 const removeLocalStor = document.querySelector("#remove-item"); //
 removeLocalStor.addEventListener("click", ()=> {
   const removeLogUsername = logObjectArr.filter(item => item.userName != userName);
@@ -105,6 +101,8 @@ function onHandleUserName(event) {
     const idx = event.currentTarget.selectedIndex;  
     // === USERNAME ===
     userName = event.currentTarget.options[idx].text; // Ok
+    // resultDescrTeg.innerHTML = "";
+    resultDescrTeg.textContent = "";
     renderUserName(userName);
 }
 
@@ -216,17 +214,7 @@ const closeModalBtn = document.querySelector("[data-modal-close]");
 const modal = document.querySelector("[data-modal]");
 
 
-// const modalInput2 = document.querySelector(".modal-form-input2");
-// // modalInput2.autofocus = true;
-// modalInput2.focus();
-
-// const modalInput = document.querySelector(".modal-form-input");
-// modalInput.focus();
-
-
-
 openModalBtn.addEventListener("click", openModal);
-
 let isOpenModal = false;
 
 
@@ -252,7 +240,7 @@ function openModal () {
   subTeg_1.textContent = select.value;
   mult2RandomArr = randomLine(); // Масив з рандомної черги
   mult2RandomTeg.textContent = mult2RandomArr[numberTask - 1]; // вивід наступного множника на екран 
-  modalInput.focus();
+  // modalInput.focus();
   onStartTimer();
 }
 
@@ -393,6 +381,7 @@ function onSubmit(event) {
 function onStartTimer() {
   interval_Id = setInterval(()=> {
     timeCounter += 1;
+    // console.log(timeCounter);
     myTimer.textContent = onTimeCount(timeCounter);
   }, 1000);
   

@@ -1,5 +1,8 @@
-console.log("Hello from sound js");
+// console.log("Hello from sound js");
 
+/*
+  цей файл не використовується!!
+*/
 
 
 
