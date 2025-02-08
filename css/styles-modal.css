@@ -92,6 +92,8 @@
 
   @media (max-width: 600px) {
     .modal {
+      top: 2%;
+      transform: translate(-50%);
       width: 96%;
     }
   }

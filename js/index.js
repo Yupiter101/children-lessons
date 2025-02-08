@@ -44,7 +44,7 @@ const mult2RandomTeg = document.querySelector(".random-sub"); //  Тег Мно�
 const resultDescrTeg = document.querySelector("#result-answ"); // Тег Відповідь message = Тег html
 const tableList = document.querySelector("#t-body"); // Тег для рендеру таблиці прогресу
 
-// ==== audio players  =====
+// ==== audio source =====
 const playerGameWon = document.querySelector(".sounds-game-won"); // Player Won
 const playerSoundWin = document.querySelector(".sounds-win"); // Player Win
 const playerSoundLost = document.querySelector(".sounds-lost"); // Player Lost
@@ -59,8 +59,6 @@ soundTogle.addEventListener("change", ()=> {
 // ==== Select множника 2 - 9 =====
 const subTeg_1 = document.querySelector(".sub-1"); // Перший множник  = Тег html
 const select = document.querySelector("#_select"); //  Стягуємо Тег "Select"
-// console.log(select.value);
-
 
 
 // === Очищення історії користувача removeLocalStor  =========
@@ -75,6 +73,7 @@ removeLocalStor.addEventListener("click", ()=> {
   if(isLoglist) {
     logList.innerHTML = renderLogList(logObjectArr);
   }
+  removeLocalStor.disabled = true;
 });
 
 
@@ -111,11 +110,15 @@ function renderUserName(u_name) {
     helloUserTeg.style = "color: green";
     helloUserTeg.textContent = `Вітаю ${u_name}! 😀`;
     tableList.innerHTML = renderProgressList(createProgressArr(logObjectArr, u_name));
+    const hasName = logObjectArr.some(item => item.userName === u_name);
+    // console.log(hasName);
+    removeLocalStor.disabled = !hasName;
     openModalBtn.disabled = false;
 }
 
 
-// ===== getLocalStorage and Render LogList at start page ======
+
+// ===== Завантаження з LocalStorage at start page ======
 const getLocalStorage = localStorage.getItem("school") ?? "";
 if(getLocalStorage !== "") {
   logObjectArr = jsonParser(getLocalStorage);
@@ -125,7 +128,6 @@ if(getLocalStorage !== "") {
     logList.innerHTML = renderLogList(logObjectArr);
   }
   
-
   const uniqueUsers = getUsers(logObjectArr);
 
   uniqueUsers.forEach((value, index) => {
@@ -160,11 +162,28 @@ function onMakeNewUser() {
         type="text"
         maxlength="10"
         name="newUser">
-      <button type="button" data-action="save">Save</button>
+      <button type="button" data-action="save">Ok</button>
+      <button type="button" data-action="cancel">❌</button>
   `;
   addUserBtn.insertAdjacentHTML('afterend', markupInput); //Рендер input і button після addUserBtn
 
   const newNameInput = document.querySelector('#input-new-username');
+
+  const cancelBtn = document.querySelector('button[data-action="cancel"]');
+  cancelBtn.addEventListener('click', onCancel);
+
+  function onCancel() {
+    // console.log('onCancel');
+    cancelBtn.removeEventListener('click', onCancel);
+    cancelBtn.remove();
+    newNameInput.remove();
+    saveButton.removeEventListener('click', onSaveNewUser);
+    saveButton.remove();
+    addUserBtn.disabled = false;
+    return;
+  }
+
+
   const saveButton = document.querySelector('button[data-action="save"]');
   saveButton.addEventListener('click', onSaveNewUser);
 
@@ -187,6 +206,8 @@ function onMakeNewUser() {
    
     userName = newName;
     // видалення елементів після збереження
+    cancelBtn.removeEventListener('click', onCancel);
+    cancelBtn.remove();
     newNameInput.remove();
     saveButton.removeEventListener('click', onSaveNewUser);
     saveButton.remove();
@@ -195,6 +216,7 @@ function onMakeNewUser() {
     renderSelectUsername(nextNumOpt, userName); // Наповняємо селект новими імям
     userNameSelect.value = `username_${nextNumOpt}`; // Обираемо його за змовчуванням
     renderUserName(userName); //  вітання і ProgressList
+    resultDescrTeg.textContent = ""; // Очищення контенту попереднього користувача
   }
 }
 
@@ -337,6 +359,7 @@ function onSubmit(event) {
 
     if(findIndx === -1) {
       logObjectArr.push(logObject);
+      removeLocalStor.disabled = false;
     }
     else {
       if(logObjectArr[findIndx].rightAnswer < logObject.rightAnswer) {
