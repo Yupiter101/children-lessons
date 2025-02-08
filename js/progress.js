@@ -33,12 +33,14 @@ export function createProgressArr(dataarr, usename) {
 
 export function renderProgressList(arr) {
     const markup = arr.map((item, idx) => {
+        let classColor = "red";
+        if(item.rightAnswer === 8) classColor = 'green';
         let iron =   item.needTime <= setting.getIron()[idx] && item.rightAnswer === 8 ? "🎇" : getFormatTime(setting.getIron()[idx]);
         let silver = item.needTime <= setting.getSilver()[idx] && item.rightAnswer === 8 ? "🥈" : getFormatTime(setting.getSilver()[idx]);
         let gold =   item.needTime <= setting.getGold()[idx] && item.rightAnswer === 8 ? "🏆" : getFormatTime(setting.getGold()[idx]);
 
         return `
-            <tr>
+            <tr class="tablet-${classColor}">
                 <td>${item.mult_1}</td>
                 <td>${item.rightAnswer}/8</td>
                 <td>${getFormatTime(item.needTime)}</td>

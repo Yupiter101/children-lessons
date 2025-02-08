@@ -108,6 +108,12 @@
     color: #999;
   }
 
+  .tablet-green {
+    /* font-weight: 500; */
+    /* background-color: #e0f5df; */
+    background-color: greenyellow;
+  }
+
 
   .addUser {
     text-align: center;
@@ -120,7 +126,7 @@
 
 
   #user-name-select {
-    min-width: 120px;
+    min-width: 140px;
     height: 28px;
   }
 
@@ -150,6 +156,6 @@
   }
 
   #input-new-username {
-    width: 120px;
+    width: 140px;
 
   }
